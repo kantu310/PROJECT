@@ -28,7 +28,7 @@ public class Controller extends Main{
 
 		if (rs == true) {
 			//ログイン画面を閉じてメイン画面へ遷移
-			System.out.println("ログイン成功！！！");
+			System.out.println("ログイン成功！！！！");
 			((Node) event.getSource()).getScene().getWindow().hide();
 			Parent parent = FXMLLoader.load(getClass().getResource("Mainmenu.fxml"));
 			Stage stage = new Stage();
