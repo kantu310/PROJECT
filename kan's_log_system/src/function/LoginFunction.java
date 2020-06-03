@@ -3,6 +3,8 @@ package function;
 import java.util.HashMap;
 import java.util.Map;
 
+import data.ConstantData;
+
 public class LoginFunction {
 	public boolean rs = false;
 
@@ -13,6 +15,8 @@ public class LoginFunction {
 
 			if ((id.equals(entry.getKey()) && (pass.equals(entry.getValue())))) {
 				rs = true;
+				ConstantData.setLoginUserID(id);//ログインに成功したとき、ユーザＩＤをloguinUserID変数に格納
+
 			}
 		}
 		return rs;

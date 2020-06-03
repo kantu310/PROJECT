@@ -47,13 +47,13 @@ public class Controller extends Main{
 	public void onButtonLoan(Event event) throws Exception {
 
 
-			//((Node) event.getSource()).getScene().getWindow().hide();
-			Parent parent = FXMLLoader.load(getClass().getResource("Loan.fxml"));
-			Stage stage = new Stage();
-			Scene scene = new Scene(parent,1650,750);
-			stage.setScene(scene);
-			stage.setTitle("Kan's Log System");
-			stage.show();
+		//((Node) event.getSource()).getScene().getWindow().hide();
+		Parent parent = FXMLLoader.load(getClass().getResource("Loan.fxml"));
+		Stage stage = new Stage();
+		Scene scene = new Scene(parent,1650,750);
+		stage.setScene(scene);
+		stage.setTitle("Kan's Log System");
+		stage.show();
 
 
 	}

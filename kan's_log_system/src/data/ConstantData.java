@@ -7,6 +7,17 @@ package data;
  */
 
 public  class ConstantData {
+
+		//ログイン中のuserID
+		public static String loginUserID;
+
+		public static String getLoginUserID() {
+			return loginUserID;
+		}
+		public static void setLoginUserID(String loginUserID) {
+			ConstantData.loginUserID = loginUserID;
+		}
+
 		//MYSQLに接続するための情報
 		public static final String MYSQL_URL = "jdbc:mysql://localhost:3306/kan_system?characterEncoding=UTF-8&serverTimezone=JST";
 		public static final String MYSQL_USER = "root";
@@ -17,6 +28,11 @@ public  class ConstantData {
 		public static final String PASSWORD = "PASSWORD";
 		public static final String CREATE_TIME = "CREATE_TIME";
 
+		// 【repayment_balance】返済残高管理テーブルのカラム
+		public static final String LOAN_DATE = "LOAN_DATE";
+		public static final String REPAID_AMOUNT = "REPAID_AMOUNT";
+		public static final String DEPOSIT_AMOUNT = "DEPOSIT_AMOUNT";
+		public static final String BALANCE = "BALANCE";
 
 
 
@@ -39,6 +55,17 @@ public  class ConstantData {
 		public static String getCreateTime() {
 			return CREATE_TIME;
 		}
-
+		public static String getLoanDate() {
+			return LOAN_DATE;
+		}
+		public static String getRepaidAmount() {
+			return REPAID_AMOUNT;
+		}
+		public static String getDepositAmount() {
+			return DEPOSIT_AMOUNT;
+		}
+		public static String getBalance() {
+			return BALANCE;
+		}
 
 }
