@@ -2,9 +2,11 @@ package parts;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import data.ConstantData;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import table.Repayment_balance;
 
 /**
  * @author sato
@@ -13,27 +15,27 @@ import data.ConstantData;
  */
 public class RepaymentBalanceParts {
 
-	public static ArrayList<Object> rs = new ArrayList<Object>();
+	public static ObservableList<Repayment_balance> obList = FXCollections.observableArrayList();
 
 	//ログインしているユーザＩＤをもとに、日付、返済金、入金、残高を取得するメソッド
-	public static ArrayList<Object>getRepaymentBalance() {
+	public static ObservableList<Repayment_balance> getRepaymentBalance() {
 
-		String sql = "SELECT LOAN_DATE,REPAID_AMOUNT,DEPOSIT_AMOUNT,DEPOSIT_AMOUNT,BALANCE FROM kan_system.repayment_balance where  USER_ID = \""+ ConstantData.getLoginUserID()+"\"";
+		String sql = "SELECT * FROM kan_system.repayment_balance where  USER_ID = \""+ ConstantData.getLoginUserID()+"\"";
 
 		ResultSet num;
 		try {
 			num = SqlConnectionParts.sqlConnectionQuery(sql);
 			while(num.next()) {
-				rs.add(num.getDate(ConstantData.LOAN_DATE));
-				rs.add(num.getLong(ConstantData.REPAID_AMOUNT));
-				rs.add(num.getLong(ConstantData.DEPOSIT_AMOUNT));
-				rs.add(num.getLong(ConstantData.BALANCE));
+
+				obList.add(new Repayment_balance(num.getDate(ConstantData.LOAN_DATE),num.getLong(ConstantData.REPAID_AMOUNT),num.getLong(ConstantData.DEPOSIT_AMOUNT),num.getLong(ConstantData.BALANCE)));
+
 			}
 		} catch (SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-		return rs;
+		System.out.println(obList);
+		return obList;
 	}
 
 }
