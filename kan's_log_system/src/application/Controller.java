@@ -10,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import parts.GetUserParts;
+import parts.UserParts;
 
 public class Controller extends Main{
 	@FXML
@@ -20,7 +20,7 @@ public class Controller extends Main{
 
 	public void onButtonLogin(Event event) throws Exception {
 
-		GetUserParts s = new GetUserParts();
+		UserParts s = new UserParts();
 		LoginFunction u = new LoginFunction();
 
 		//ユーザ情報を取得後、ログイン機能を呼び出してログイン結果を取得する

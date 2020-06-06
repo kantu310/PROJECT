@@ -20,14 +20,14 @@ public class RepaymentBalanceParts {
 	//ログインしているユーザＩＤをもとに、日付、返済金、入金、残高を取得するメソッド
 	public static ObservableList<Repayment_balance> getRepaymentBalance() {
 
-		String sql = "SELECT * FROM kan_system.repayment_balance where  USER_ID = \""+ ConstantData.getLoginUserID()+"\"";
+		String sql = "SELECT * FROM kan_system.repayment_balance where  USER_ID = \""+ ConstantData.getLoginUserID()+"\" ORDER BY  LOAN_DATE ASC";
 
 		ResultSet num;
 		try {
 			num = SqlConnectionParts.sqlConnectionQuery(sql);
 			while(num.next()) {
 
-				obList.add(new Repayment_balance(num.getDate(ConstantData.LOAN_DATE),num.getLong(ConstantData.REPAID_AMOUNT),num.getLong(ConstantData.DEPOSIT_AMOUNT),num.getLong(ConstantData.BALANCE)));
+				obList.add(new Repayment_balance(num.getString(ConstantData.LOAN_DATE),num.getLong(ConstantData.REPAID_AMOUNT),num.getLong(ConstantData.DEPOSIT_AMOUNT),num.getLong(ConstantData.BALANCE)));
 
 			}
 		} catch (SQLException e) {

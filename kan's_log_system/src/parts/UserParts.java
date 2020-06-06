@@ -14,7 +14,7 @@ import data.ConstantData;
  *【ユーザ情報取得パーツ】
  *ユーザテーブルからユーザー情報を取得する
  */
-public class GetUserParts {
+public class UserParts {
 
 	//ユーザーテーブルからユーザ情報を取得し、マップに格納するメソッド
 	public HashMap<String, String> getUserInformation() throws SQLException {

@@ -34,7 +34,9 @@ public  class ConstantData {
 		public static final String DEPOSIT_AMOUNT = "DEPOSIT_AMOUNT";
 		public static final String BALANCE = "BALANCE";
 
-
+		//【debt】借金管理テーブルのカラム
+		public static final String DEBT = "DEBT";
+		public static final String DEBT_BALANCE="DEBT_BALANCE";
 
 
 		public static String getMysqlUrl() {
@@ -66,6 +68,12 @@ public  class ConstantData {
 		}
 		public static String getBalance() {
 			return BALANCE;
+		}
+		public static String getDebt() {
+			return DEBT;
+		}
+		public static String getDebtBalance() {
+			return DEBT_BALANCE;
 		}
 
 }
