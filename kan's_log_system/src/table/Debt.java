@@ -33,7 +33,4 @@ public class Debt {
 	public void setDebt_balance(long debt_balance) {
 		this.debt_balance = debt_balance;
 	}
-
-
-
 }

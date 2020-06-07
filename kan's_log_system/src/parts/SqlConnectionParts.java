@@ -30,4 +30,20 @@ public class SqlConnectionParts {
 
 	}
 
+	//データ追加（INSERT)
+	public static int sqlCreate(String sql) throws SQLException {
+		Connection conn =null;
+
+		conn = DriverManager.getConnection(ConstantData.MYSQL_URL, ConstantData.MYSQL_USER,
+				ConstantData.MYSQL_PASSWORD);
+
+		Statement stmt = conn.createStatement();
+		int num = stmt.executeUpdate(sql);
+
+		conn.commit();
+
+		return num;
+
+	}
+
 }

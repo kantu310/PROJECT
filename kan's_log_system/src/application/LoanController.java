@@ -2,27 +2,31 @@ package application;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import parts.DebtParts;
 import parts.RepaymentBalanceParts;
-import table.Debt;
 import table.Repayment_balance;
 
 public class LoanController {
 
 	ObservableList<String> loanYearList = FXCollections.observableArrayList("2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031","2032");
-	ObservableList<String> loanMonthList = FXCollections.observableArrayList("1","2","3","4","5","6","7","8","9","10","11","12");
+	ObservableList<String> loanMonthList = FXCollections.observableArrayList("01","02","03","04","05","06","07","08","09","10","11","12");
 	ObservableList<Repayment_balance> rs = RepaymentBalanceParts.getRepaymentBalance();
-	ObservableList<Debt> rs2 = DebtParts.getDebt();
-
+	public long  rs2 = DebtParts.getDebt();
+	public long rs3 = RepaymentBalanceParts.getlastBalance();
 
     @FXML
-    private Label debt_balance;
+    private Text debt_balance;
+
+    @FXML
+    private Text lst_balance;
 
 	@FXML
 	private ChoiceBox<String> loan_year;
@@ -39,6 +43,9 @@ public class LoanController {
 	@FXML
 	private TableColumn<Repayment_balance, Long> repaid_amount;
 
+    @FXML
+    private TextField money;
+
 	@FXML
 	private TableColumn<Repayment_balance, Long> deposit_amount;
 
@@ -47,17 +54,31 @@ public class LoanController {
 
 	@FXML
 	private void initialize() {
+
+		//日付プルダウン
 		loan_year.setItems(loanYearList);
 		loan_month.setItems(loanMonthList);
 
+		//返済残高
+		debt_balance.setText(String.valueOf(rs2));
+
+		//口座残高
+		lst_balance.setText(String.valueOf(rs3));
+
+		//テーブルビュー
 		loan_date.setCellValueFactory(new PropertyValueFactory<>("loan_date"));
 		repaid_amount.setCellValueFactory(new PropertyValueFactory<>("repaid_amount"));
 		deposit_amount.setCellValueFactory(new PropertyValueFactory<>("deposit_amount"));
 		balance.setCellValueFactory(new PropertyValueFactory<>("balance"));
 		repayment_balance.setItems(rs);
-
-		System.out.println(rs2);
-
-
 	}
+
+
+    @FXML
+    void onBtn_reoayment(ActionEvent event) {
+
+    	RepaymentBalanceParts.setRepayment(loan_year.getValue(), loan_month.getValue(), money.getText());
+
+    }
+
 }
