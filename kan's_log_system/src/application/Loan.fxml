@@ -51,12 +51,12 @@
                   <Font size="23.0" />
                </font>
             </Text>
-            <RadioButton layoutX="427.0" layoutY="272.0" mnemonicParsing="false" selected="true" text="返済">
+            <RadioButton fx:id="radiopay" layoutX="427.0" layoutY="272.0" mnemonicParsing="false" selected="true" text="返済">
                <toggleGroup>
                   <ToggleGroup fx:id="group" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton layoutX="427.0" layoutY="294.0" mnemonicParsing="false" text="口座入金" toggleGroup="$group" />
+            <RadioButton fx:id="radiodepo" layoutX="427.0" layoutY="294.0" mnemonicParsing="false" text="口座入金" toggleGroup="$group" />
             <Button layoutX="272.0" layoutY="241.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="固定返済金額設定" />
             <Text layoutX="77.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¥" textAlignment="CENTER" wrappingWidth="43.268795013427734">
                <font>

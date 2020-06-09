@@ -2,15 +2,18 @@ package application;
 
 import java.util.regex.Pattern;
 
+import function.RepaymentBalanceFunction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
@@ -50,6 +53,15 @@ public class LoanController {
     @FXML
     private TextField money;
 
+    @FXML
+    private RadioButton radiopay;
+
+    @FXML
+    private ToggleGroup group;
+
+    @FXML
+    private RadioButton radiodepo;
+
 	@FXML
 	private TableColumn<Repayment_balance, Long> deposit_amount;
 
@@ -81,11 +93,30 @@ public class LoanController {
     @FXML
     void onBtn_reoayment(ActionEvent event) {
 
+    	//前ゼロをトリム
       	String a = money.getText();
-
     	money.setText(a.replaceFirst("^0+", ""));
 
-    	RepaymentBalanceParts.setRepayment(loan_year.getValue(), loan_month.getValue(), money.getText());
+    	//返済or入金の分岐
+    	if(radiopay.isSelected()) {
+    		boolean chk = RepaymentBalanceFunction.dateDuplicationCheck(rs, loan_year.getValue(), loan_month.getValue());
+    			if(chk = true) {
+    				//ポップアップダイアログ表示⇒
+    				//「yes」
+    				//updateおよび残高更新メソッド呼び出し
+    				//「no」
+    				//処理終了
+    			}else if(chk=false) {
+    				//ポップアップダイアログ表示
+    				//「yes」
+    				RepaymentBalanceParts.setRepayment(loan_year.getValue(), loan_month.getValue(), money.getText());
+    				//「no」
+    				//処理終了
+    			}
+    	}else {
+    		System.out.println("入金");
+    	}
+
 
     }
 
