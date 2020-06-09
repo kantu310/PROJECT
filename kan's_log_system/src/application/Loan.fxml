@@ -2,21 +2,23 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<SplitPane dividerPositions="0.39195979899497485" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="768.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoanController">
+<SplitPane dividerPositions="0.47780678851174935" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="768.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoanController">
 	<items>
-		<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="283.0" prefWidth="598.0">
+		<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="762.0" prefWidth="615.0">
 			<children>
-				<TextField fx:id="money" layoutX="189.0" layoutY="239.0" prefHeight="26.0" prefWidth="183.0" />
+				<TextField id="txtfieldMoney" fx:id="money" layoutX="122.0" layoutY="273.0" onKeyPressed="#onKyPrsMoney" prefHeight="39.0" prefWidth="295.0" promptText="tityi" />
 				<Text layoutX="34.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¥" wrappingWidth="43.268795013427734">
 					<font>
 						<Font size="62.0" />
@@ -27,14 +29,13 @@
 						<Font size="46.0" />
 					</font>
 				</Text>
-				<Button fx:id="btn_repayment" layoutX="379.0" layoutY="239.0" mnemonicParsing="false" onAction="#onBtn_reoayment" text="返済" />
-				<Button layoutX="429.0" layoutY="240.0" mnemonicParsing="false" text="入金" />
-				<ChoiceBox fx:id="loan_year" layoutX="34.0" layoutY="239.0" prefHeight="26.0" prefWidth="58.0" />
-				<ChoiceBox fx:id="loan_month" layoutX="116.0" layoutY="239.0" prefHeight="26.0" prefWidth="40.0" />
-				<Text layoutX="97.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="年" />
-				<Text layoutX="160.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="月" />
-				<Button layoutX="476.0" layoutY="239.0" mnemonicParsing="false" text="取消" />
-				<Text layoutX="100.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="口座残高" textAlignment="CENTER" wrappingWidth="79.26879501342773" />
+				<Button fx:id="btn_repayment" layoutX="324.0" layoutY="318.0" mnemonicParsing="false" onAction="#onBtn_reoayment" text="登録" />
+				<ChoiceBox fx:id="loan_year" layoutX="122.0" layoutY="240.0" prefHeight="26.0" prefWidth="58.0" />
+				<ChoiceBox fx:id="loan_month" layoutX="204.0" layoutY="240.0" prefHeight="26.0" prefWidth="40.0" />
+				<Text layoutX="185.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="年" />
+				<Text layoutX="248.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="月" />
+				<Button layoutX="375.0" layoutY="318.0" mnemonicParsing="false" text="取消" />
+				<Text layoutX="122.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="口座残高" textAlignment="CENTER" wrappingWidth="79.26879501342773" />
             <ImageView layoutX="96.0" layoutY="24.0">
                <image>
                   <Image url="@../../../../../AppData/Local/Temp/icons8_fire_26px.png" />
@@ -45,21 +46,33 @@
                   <Font size="46.0" />
                </font>
             </Text>
-            <Text fx:id="lst_balance" layoutX="172.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="266.97069704532623">
+            <Text fx:id="lst_balance" layoutX="207.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="234.97069704532623">
                <font>
                   <Font size="23.0" />
                </font>
             </Text>
+            <RadioButton layoutX="427.0" layoutY="272.0" mnemonicParsing="false" selected="true" text="返済">
+               <toggleGroup>
+                  <ToggleGroup fx:id="group" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton layoutX="427.0" layoutY="294.0" mnemonicParsing="false" text="口座入金" toggleGroup="$group" />
+            <Button layoutX="272.0" layoutY="241.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="143.0" text="固定返済金額設定" />
+            <Text layoutX="77.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="¥" textAlignment="CENTER" wrappingWidth="43.268795013427734">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Text>
 			</children>
 		</AnchorPane>
-		<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="248.0" prefWidth="598.0">
+		<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="403.0" prefWidth="615.0">
 			<children>
-				<TableView fx:id="repayment_balance" layoutX="-1.0" prefHeight="399.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+				<TableView fx:id="repayment_balance" layoutX="-1.0" prefHeight="327.0" prefWidth="615.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 					<columns>
 						<TableColumn fx:id="loan_date" prefWidth="112.0" text="日時" />
 						<TableColumn fx:id="repaid_amount" prefWidth="165.0" text="返済額" />
 						<TableColumn fx:id="deposit_amount" prefWidth="142.0" text="口座入金額" />
-						<TableColumn fx:id="balance" prefWidth="178.0" text="口座残高" />
+						<TableColumn fx:id="balance" prefWidth="195.0" text="口座残高" />
 					</columns>
 				</TableView>
 			</children>

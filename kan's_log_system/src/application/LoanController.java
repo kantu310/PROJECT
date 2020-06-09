@@ -1,5 +1,7 @@
 package application;
 
+import java.util.regex.Pattern;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,7 +10,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import parts.DebtParts;
 import parts.RepaymentBalanceParts;
@@ -77,7 +81,31 @@ public class LoanController {
     @FXML
     void onBtn_reoayment(ActionEvent event) {
 
+      	String a = money.getText();
+
+    	money.setText(a.replaceFirst("^0+", ""));
+
     	RepaymentBalanceParts.setRepayment(loan_year.getValue(), loan_month.getValue(), money.getText());
+
+    }
+
+    @FXML
+    void onKyPrsMoney(KeyEvent event) {
+    	//数字以外の入力を制御
+    	Pattern notNumberPattern = Pattern.compile("[^0-9]+");
+    	TextFormatter<String> lowerFormatter = new TextFormatter<>(change -> {
+    	    String newStr = notNumberPattern.matcher(change.getText()).replaceAll("");
+    	    int diffcount = change.getText().length() - newStr.length();
+    	    change.setAnchor(change.getAnchor() - diffcount);
+    	    change.setCaretPosition(change.getCaretPosition() - diffcount);
+    	    change.setText(newStr);
+    	    return change;
+    	});
+    	money.setTextFormatter(lowerFormatter);
+
+      	//String a = money.getText();
+
+    	//money.setText(a.replaceFirst("^0+", ""));
 
     }
 
