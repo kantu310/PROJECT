@@ -12,7 +12,7 @@ import table.Repayment_balance;
 public class RepaymentBalanceFunction {
 
 	public static String  rs;
-	public static boolean rsCheck = false;
+	public static boolean rsCheck;
 
 
 	/**
@@ -25,14 +25,17 @@ public class RepaymentBalanceFunction {
 	public static boolean dateDuplicationCheck(ObservableList<Repayment_balance> rs1,String year,String month){
 
 		rs = year + "-" + month;
+		System.out.println(rs);
 
 		for(Repayment_balance s:rs1) {
 
 			if(s.loan_date.equalsIgnoreCase(rs)) {
 				System.out.println(s.loan_date);
 				rsCheck = true;
+				break;
 			}else {
 				System.out.println("一致しないよ");
+				rsCheck = false;
 			}
 		}
 
@@ -40,20 +43,29 @@ public class RepaymentBalanceFunction {
 	}
 
 
-	public static void balanceReCal(ObservableList<Repayment_balance> obList) {
+	/**
+	 * 口座残高を再計算して、計算結果をリストで返す機能
+	 * @param obList
+	 * @return　口座残高再計算結果リスト
+	 */
+	public static ArrayList<Repayment_balance> balanceReCal(ObservableList<Repayment_balance> obList) {
 
-		ArrayList<Repayment_balance> calList = new ArrayList<>();
+		System.out.println(obList);
+
+		ArrayList<Repayment_balance> calList = new ArrayList<>(obList);
 
 
 		Repayment_balance a = new Repayment_balance(obList.get(0).loan_date, obList.get(0).repaid_amount, obList.get(0).deposit_amount, obList.get(0).deposit_amount - obList.get(0).repaid_amount);
 
-		obList.set(0,a);
+		calList.set(0,a);
 
 		for(int i = 1; i < obList.size(); i++) {
 
-			Repayment_balance b = new Repayment_balance(obList.get(i).loan_date, obList.get(i).repaid_amount, obList.get(i).deposit_amount, obList.get(i-1).balance + obList.get(i).deposit_amount - obList.get(i).repaid_amount);
-			obList.set(i, b);
+			Repayment_balance b = new Repayment_balance(calList.get(i).loan_date, calList.get(i).repaid_amount, calList.get(i).deposit_amount, calList.get(i-1).balance + calList.get(i).deposit_amount - calList.get(i).repaid_amount);
+			calList.set(i, b);
 		}
+
+		return calList;
 
 	}
 

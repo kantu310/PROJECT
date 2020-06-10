@@ -1,5 +1,6 @@
 package application;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -97,30 +98,44 @@ public class LoanController {
     void onBtn_reoayment(ActionEvent event) {
 
     	boolean chk = false;
+    	String sqlType = null;
+
+    	ArrayList<Repayment_balance> calList = new ArrayList<>();
 
     	//前ゼロをトリム
     	String a = money.getText();
     	money.setText(a.replaceFirst("^0+", ""));
 
     	//アラートダイアログ
-
     	Alert dialog = new Alert(AlertType.NONE , "登録しますか？" , ButtonType.YES , ButtonType.NO);
     	//返済or入金の分岐
     	if(radiopay.isSelected()) {
     		chk = RepaymentBalanceFunction.dateDuplicationCheck(rs, loan_year.getValue(), loan_month.getValue());
     		if(chk == true) {
-    			//ポップアップダイアログ表示⇒
+    			Alert dialog2 = new Alert(AlertType.NONE , "すでにデータがあります更新しますか？" , ButtonType.YES , ButtonType.NO);
+    			Optional<ButtonType> diaRs2 = dialog2.showAndWait();
+    			if(diaRs2.get() == ButtonType.YES) {
     			//「yes」
-    			RepaymentBalanceFunction.balanceReCal(rs);
-    			//updateおよび残高更新メソッド呼び出し
-    			//「no」
-    			//処理終了
-    		}else {
+    			sqlType = "UPDATE";
+    			RepaymentBalanceParts.setRepayment(loan_year.getValue(), loan_month.getValue(), money.getText(), sqlType);
+    			calList = RepaymentBalanceFunction.balanceReCal(RepaymentBalanceParts.getRepaymentBalance());
+    			RepaymentBalanceParts.upNewBalance(calList);
+    			rs.clear();
+    			rs = RepaymentBalanceParts.getRepaymentBalance();
+    			}else if(diaRs2.get() == ButtonType.NO) {
+    				 chk = false;
+    				dialog.close();
+    			}
+    		}else if(chk == false){
     			//ポップアップダイアログ表示
     			Optional<ButtonType> diaRs = dialog.showAndWait();
     			if(diaRs.get() == ButtonType.YES) {
-    				RepaymentBalanceParts.setRepayment(loan_year.getValue(), loan_month.getValue(), money.getText());
-    				dialog.close();
+    				sqlType = "INSERT";
+    				RepaymentBalanceParts.setRepayment(loan_year.getValue(), loan_month.getValue(), money.getText(),sqlType);
+    				calList = RepaymentBalanceFunction.balanceReCal(RepaymentBalanceParts.getRepaymentBalance());
+        			RepaymentBalanceParts.upNewBalance(calList);
+        			rs.clear();
+        			rs = RepaymentBalanceParts.getRepaymentBalance();
     			}else {
     				System.out.println("処理終了");
     				dialog.close();

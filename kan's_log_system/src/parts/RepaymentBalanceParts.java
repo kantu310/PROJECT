@@ -2,6 +2,7 @@ package parts;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import data.ConstantData;
 import javafx.collections.FXCollections;
@@ -18,8 +19,14 @@ public class RepaymentBalanceParts {
 	public static ObservableList<Repayment_balance> obList = FXCollections.observableArrayList();
 	public static long lstBalance;
 
-	//ログインしているユーザＩＤをもとに、日付、返済金、入金、残高を取得するメソッド
+
+	/**
+	 * ログインしているユーザＩＤをもとに、日付、返済金、入金、残高を取得するメソッド
+	 * @return 取得結果リスト
+	 */
 	public static ObservableList<Repayment_balance> getRepaymentBalance() {
+
+		obList.clear();
 
 		String sql = "SELECT * FROM kan_system.repayment_balance where  USER_ID = \""+ ConstantData.getLoginUserID()+"\" ORDER BY  LOAN_DATE ASC";
 
@@ -38,13 +45,28 @@ public class RepaymentBalanceParts {
 		return obList;
 	}
 
-	public static void setRepayment(String year, String month, String money) {
+	/**
+	 * 返済金登録メソッド
+	 * @param year 年
+	 * @param month 月
+	 * @param money 金額
+	 */
+	public static void setRepayment(String year, String month, String money, String sqlType) {
 
 		String date = year + "-" + month;
+		String sql =null;
 
-		//String sql = "INSERT INTO kan_system.repayment_balance (USER_ID, LOAN_DATE, REPAID_AMOUNT) VALUES (\""+ConstantData.getLoginUserID()+"\",\""+ date +"\","+ money +")";
+		switch (sqlType) {
+		case "INSERT":
+			sql = "INSERT INTO kan_system.repayment_balance (USER_ID, LOAN_DATE, REPAID_AMOUNT) VALUES (\""+ConstantData.getLoginUserID()+"\",\""+ date +"\",\""+ money+"\")";
+			break;
+		case "UPDATE":
+			sql = "update kan_system.repayment_balance set REPAID_AMOUNT =\"" + money + "\"where LOAN_DATE = \"" + date + "\" AND USER_ID = \"" + ConstantData.getLoginUserID() +"\"";
 
-		String sql = "INSERT INTO kan_system.repayment_balance (USER_ID, LOAN_DATE, REPAID_AMOUNT) VALUES (\""+ConstantData.getLoginUserID()+"\",\""+ date +"\",\""+ money+"\")";
+		default:
+			break;
+		}
+
 		int num = 0;
 
 		try {
@@ -56,5 +78,70 @@ public class RepaymentBalanceParts {
 		System.out.println(num);
 	}
 
+	/**
+	 * 口座入金登録メソッド
+	 * @param year 年
+	 * @param month 月
+	 * @param money 金額
+	 */
+	public static void setDeposit(String year, String month, String money, String sqlType) {
 
-}
+		String date = year + "-" + month;
+		String sql =null;
+
+		switch (sqlType) {
+		case "INSERT":
+			sql = "INSERT INTO kan_system.repayment_balance (USER_ID, LOAN_DATE, DEPOSIT_AMOUNT) VALUES (\""+ConstantData.getLoginUserID()+"\",\""+ date +"\",\""+ money+"\")";
+			break;
+		case "UPDATE":
+			sql = "update kan_system.repayment_balance set DEPOSIT_AMOUNT =" + money + "where LOAN_DATE = \"" + date + "\" AND USER_ID = \"" + ConstantData.getLoginUserID() +"\"";
+
+		default:
+			break;
+		}
+
+		int num = 0;
+
+		try {
+			num = SqlConnectionParts.sqlCreate(sql);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+
+		System.out.println(num);
+	}
+
+	/**
+	 * 口座残高を再更新するメソッド
+	 * @param balist 口座残高が再計算された結果が格納されたリスト
+	 */
+	public static void upNewBalance(ArrayList<Repayment_balance>balist) {
+
+		long a = balist.get(0).balance;
+		String d = balist.get(0).loan_date;
+
+
+		String sql = "update kan_system.repayment_balance set BALANCE =\"" + a + "\" where LOAN_DATE = \"" + d + "\" AND USER_ID = \"" + ConstantData.getLoginUserID() +"\"";
+		try {
+			SqlConnectionParts.sqlCreate(sql);
+		} catch (SQLException e1) {
+			// TODO 自動生成された catch ブロック
+			e1.printStackTrace();
+		}
+
+		for(int i = 1; i < balist.size();i++) {
+
+		 sql = "update kan_system.repayment_balance set BALANCE =\"" + balist.get(i).balance + "\" where LOAN_DATE = \"" + balist.get(i).loan_date + "\" AND USER_ID = \"" + ConstantData.getLoginUserID() +"\"";
+		 System.out.println(sql);
+
+		try {
+			SqlConnectionParts.sqlCreate(sql);
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+	}
+
+
+}}

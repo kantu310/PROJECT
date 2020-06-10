@@ -30,7 +30,7 @@ public class SqlConnectionParts {
 
 	}
 
-	//データ追加（INSERT)
+	//データ追加（INSERT)と更新
 	public static int sqlCreate(String sql) throws SQLException {
 		Connection conn =null;
 
@@ -40,10 +40,10 @@ public class SqlConnectionParts {
 		Statement stmt = conn.createStatement();
 		int num = stmt.executeUpdate(sql);
 
-		conn.commit();
-
 		return num;
 
 	}
+
+
 
 }
