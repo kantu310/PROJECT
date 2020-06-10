@@ -38,25 +38,6 @@ public class RepaymentBalanceParts {
 		return obList;
 	}
 
-	//最新の口座残高を取得するメソッド
-	public static long getlastBalance() {
-
-		String sql = "SELECT BALANCE FROM kan_system.repayment_balance where LOAN_DATE = (SELECT MAX(LOAN_DATE) FROM kan_system.repayment_balance) AND  USER_ID = \""+ ConstantData.getLoginUserID()+"\"";
-
-		ResultSet num;
-		try {
-			num = SqlConnectionParts.sqlConnectionQuery(sql);
-			while(num.next()) {
-				lstBalance = num.getLong(ConstantData.BALANCE);
-			}
-		} catch (SQLException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
-		return lstBalance;
-	}
-
-
 	public static void setRepayment(String year, String month, String money) {
 
 		String date = year + "-" + month;

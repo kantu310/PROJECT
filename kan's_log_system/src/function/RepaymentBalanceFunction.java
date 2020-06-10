@@ -1,5 +1,7 @@
 package function;
 
+import java.util.ArrayList;
+
 import javafx.collections.ObservableList;
 import table.Repayment_balance;
 
@@ -35,6 +37,24 @@ public class RepaymentBalanceFunction {
 		}
 
 		return rsCheck;
+	}
+
+
+	public static void balanceReCal(ObservableList<Repayment_balance> obList) {
+
+		ArrayList<Repayment_balance> calList = new ArrayList<>();
+
+
+		Repayment_balance a = new Repayment_balance(obList.get(0).loan_date, obList.get(0).repaid_amount, obList.get(0).deposit_amount, obList.get(0).deposit_amount - obList.get(0).repaid_amount);
+
+		obList.set(0,a);
+
+		for(int i = 1; i < obList.size(); i++) {
+
+			Repayment_balance b = new Repayment_balance(obList.get(i).loan_date, obList.get(i).repaid_amount, obList.get(i).deposit_amount, obList.get(i-1).balance + obList.get(i).deposit_amount - obList.get(i).repaid_amount);
+			obList.set(i, b);
+		}
+
 	}
 
 }

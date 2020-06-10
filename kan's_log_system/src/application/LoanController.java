@@ -1,5 +1,6 @@
 package application;
 
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 import function.RepaymentBalanceFunction;
@@ -7,6 +8,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -27,7 +31,6 @@ public class LoanController {
 	ObservableList<String> loanMonthList = FXCollections.observableArrayList("01","02","03","04","05","06","07","08","09","10","11","12");
 	ObservableList<Repayment_balance> rs = RepaymentBalanceParts.getRepaymentBalance();
 	public long  rs2 = DebtParts.getDebt();
-	public long rs3 = RepaymentBalanceParts.getlastBalance();
 
     @FXML
     private Text debt_balance;
@@ -79,7 +82,7 @@ public class LoanController {
 		debt_balance.setText(String.valueOf(rs2));
 
 		//口座残高
-		lst_balance.setText(String.valueOf(rs3));
+		lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
 
 		//テーブルビュー
 		loan_date.setCellValueFactory(new PropertyValueFactory<>("loan_date"));
@@ -93,31 +96,39 @@ public class LoanController {
     @FXML
     void onBtn_reoayment(ActionEvent event) {
 
+    	boolean chk = false;
+
     	//前ゼロをトリム
-      	String a = money.getText();
+    	String a = money.getText();
     	money.setText(a.replaceFirst("^0+", ""));
 
+    	//アラートダイアログ
+
+    	Alert dialog = new Alert(AlertType.NONE , "登録しますか？" , ButtonType.YES , ButtonType.NO);
     	//返済or入金の分岐
     	if(radiopay.isSelected()) {
-    		boolean chk = RepaymentBalanceFunction.dateDuplicationCheck(rs, loan_year.getValue(), loan_month.getValue());
-    			if(chk = true) {
-    				//ポップアップダイアログ表示⇒
-    				//「yes」
-    				//updateおよび残高更新メソッド呼び出し
-    				//「no」
-    				//処理終了
-    			}else if(chk=false) {
-    				//ポップアップダイアログ表示
-    				//「yes」
+    		chk = RepaymentBalanceFunction.dateDuplicationCheck(rs, loan_year.getValue(), loan_month.getValue());
+    		if(chk == true) {
+    			//ポップアップダイアログ表示⇒
+    			//「yes」
+    			RepaymentBalanceFunction.balanceReCal(rs);
+    			//updateおよび残高更新メソッド呼び出し
+    			//「no」
+    			//処理終了
+    		}else {
+    			//ポップアップダイアログ表示
+    			Optional<ButtonType> diaRs = dialog.showAndWait();
+    			if(diaRs.get() == ButtonType.YES) {
     				RepaymentBalanceParts.setRepayment(loan_year.getValue(), loan_month.getValue(), money.getText());
-    				//「no」
-    				//処理終了
+    				dialog.close();
+    			}else {
+    				System.out.println("処理終了");
+    				dialog.close();
     			}
+    		}
     	}else {
     		System.out.println("入金");
     	}
-
-
     }
 
     @FXML
@@ -133,11 +144,6 @@ public class LoanController {
     	    return change;
     	});
     	money.setTextFormatter(lowerFormatter);
-
-      	//String a = money.getText();
-
-    	//money.setText(a.replaceFirst("^0+", ""));
-
     }
 
 }
