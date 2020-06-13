@@ -37,6 +37,7 @@ public  class ConstantData {
 		//【debt】借金管理テーブルのカラム
 		public static final String DEBT = "DEBT";
 		public static final String DEBT_BALANCE="DEBT_BALANCE";
+		public static final String FIXED_MONEY = "FIXED_MONEY";
 
 
 		public static String getMysqlUrl() {

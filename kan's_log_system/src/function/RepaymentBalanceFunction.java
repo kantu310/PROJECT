@@ -25,7 +25,6 @@ public class RepaymentBalanceFunction {
 	public static boolean dateDuplicationCheck(ObservableList<Repayment_balance> rs1,String year,String month){
 
 		rs = year + "-" + month;
-		System.out.println(rs);
 
 		for(Repayment_balance s:rs1) {
 
@@ -38,7 +37,6 @@ public class RepaymentBalanceFunction {
 				rsCheck = false;
 			}
 		}
-
 		return rsCheck;
 	}
 
@@ -53,7 +51,6 @@ public class RepaymentBalanceFunction {
 		System.out.println(obList);
 
 		ArrayList<Repayment_balance> calList = new ArrayList<>(obList);
-
 
 		Repayment_balance a = new Repayment_balance(obList.get(0).loan_date, obList.get(0).repaid_amount, obList.get(0).deposit_amount, obList.get(0).deposit_amount - obList.get(0).repaid_amount);
 

@@ -79,12 +79,12 @@ public class RepaymentBalanceParts {
 	}
 
 	/**
-	 * 口座入金登録メソッド
+	 * 入金金登録メソッド
 	 * @param year 年
 	 * @param month 月
 	 * @param money 金額
 	 */
-	public static void setDeposit(String year, String month, String money, String sqlType) {
+	public static void setDepotis(String year, String month, String money, String sqlType) {
 
 		String date = year + "-" + month;
 		String sql =null;
@@ -94,7 +94,7 @@ public class RepaymentBalanceParts {
 			sql = "INSERT INTO kan_system.repayment_balance (USER_ID, LOAN_DATE, DEPOSIT_AMOUNT) VALUES (\""+ConstantData.getLoginUserID()+"\",\""+ date +"\",\""+ money+"\")";
 			break;
 		case "UPDATE":
-			sql = "update kan_system.repayment_balance set DEPOSIT_AMOUNT =" + money + "where LOAN_DATE = \"" + date + "\" AND USER_ID = \"" + ConstantData.getLoginUserID() +"\"";
+			sql = "update kan_system.repayment_balance set DEPOSIT_AMOUNT =\"" + money + "\"where LOAN_DATE = \"" + date + "\" AND USER_ID = \"" + ConstantData.getLoginUserID() +"\"";
 
 		default:
 			break;
