@@ -21,7 +21,7 @@ public class Controller extends Main{
 	public TextField login_user_id;
 	public TextField login_password;
 	public Label login_error_message;
-	Stage stage = new Stage();
+	Stage stage;
 	Scene scene;
 
     @FXML
@@ -69,6 +69,7 @@ public class Controller extends Main{
 			System.out.println("ログイン成功だよ！");
 			((Node) event.getSource()).getScene().getWindow().hide();
 			Parent parent = FXMLLoader.load(getClass().getResource("Mainmenu.fxml"));
+			stage = new Stage();
 
 			scene = new Scene(parent);
 			stage.setScene(scene);

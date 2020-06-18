@@ -18,6 +18,24 @@ public  class ConstantData {
 			ConstantData.loginUserID = loginUserID;
 		}
 
+
+		public static long currentDebt;
+		public static long currentFixedMoney;
+
+		public static long getCurrentDebt() {
+			return currentDebt;
+		}
+		public static void setCurrentDebt(long currentDebt) {
+			ConstantData.currentDebt = currentDebt;
+		}
+		public static long getCurrentFixedMoney() {
+			return currentFixedMoney;
+		}
+		public static void setCurrentFixedMoney(long currentFixedMoney) {
+			ConstantData.currentFixedMoney = currentFixedMoney;
+		}
+
+
 		//MYSQLに接続するための情報
 		public static final String MYSQL_URL = "jdbc:mysql://localhost:3306/kan_system?characterEncoding=UTF-8&serverTimezone=JST";
 		public static final String MYSQL_USER = "root";

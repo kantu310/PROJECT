@@ -1,14 +1,20 @@
 package application;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import data.ConstantData;
 import function.RepaymentBalanceFunction;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
@@ -21,19 +27,29 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import parts.DebtParts;
 import parts.RepaymentBalanceParts;
 import table.Debt;
 import table.Repayment_balance;
 
-public class LoanController {
+public class LoanController extends Controller{
 
 	ObservableList<String> loanYearList = FXCollections.observableArrayList("2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031","2032");
 	ObservableList<String> loanMonthList = FXCollections.observableArrayList("01","02","03","04","05","06","07","08","09","10","11","12");
 	ObservableList<Repayment_balance> rs = RepaymentBalanceParts.getRepaymentBalance();
-	ObservableList<Debt>  rs2 = DebtParts.getDebt();
+	static  ObservableList<Debt>  rs2 = DebtParts.getDebt();
+	static SimpleStringProperty aaa = new SimpleStringProperty(String.valueOf(rs2.get(0).debt_balance));
+
+
+    @FXML
+    private AnchorPane loanpane;
 
 	@FXML
 	private Text debt_balance;
@@ -83,6 +99,9 @@ public class LoanController {
 	@FXML
 	private TableColumn<Repayment_balance, Long> balance;
 
+    @FXML
+    private ImageView loanConf;
+
 	@FXML
 	private void initialize() {
 
@@ -90,7 +109,8 @@ public class LoanController {
 		loan_year.setItems(loanYearList);
 		loan_month.setItems(loanMonthList);
 		//返済残高
-		debt_balance.setText(String.valueOf(rs2.get(0).debt_balance));
+		debt_balance.textProperty().bind(aaa);
+		//debt_balance.setText(String.valueOf(rs2.get(0).debt_balance));
 		//口座残高
 		lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
 		//テーブルビュー
@@ -99,6 +119,10 @@ public class LoanController {
 		deposit_amount.setCellValueFactory(new PropertyValueFactory<>("deposit_amount"));
 		balance.setCellValueFactory(new PropertyValueFactory<>("balance"));
 		repayment_balance.setItems(rs);
+
+
+		ConstantData.setCurrentDebt(rs2.get(0).debt);
+		ConstantData.setCurrentFixedMoney(rs2.get(0).fixed_money);
 	}
 
 	@FXML
@@ -222,7 +246,7 @@ public class LoanController {
 
 	@FXML
 	void onBtn_fixed_money(ActionEvent event) {
-		money.setText(String.valueOf(rs2.get(0).fixed_money));
+		money.setText(String.valueOf(ConstantData.getCurrentFixedMoney()));
 	}
 
 	@FXML
@@ -243,4 +267,22 @@ public class LoanController {
     	fixed_money.setDisable(false);
 
     }
+
+    @FXML
+    void onBtnloanconf(MouseEvent event) throws IOException {
+
+		Parent parent1 = FXMLLoader.load(getClass().getResource("LoanConf.fxml"));
+		Stage stage1 = new Stage();
+		Scene scene1 = new Scene(parent1,401,285);
+	 	stage1.initOwner(stage);
+		stage1.setScene(scene1);
+		stage1.initModality(Modality.APPLICATION_MODAL);
+		stage1.showAndWait();
+
+    	//AnchorPane pane = FXMLLoader.load(getClass().getResource("LoanConf.fxml"));
+		//loanpane.getChildren().setAll(pane);
+    }
+
+
+
 }

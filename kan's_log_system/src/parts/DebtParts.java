@@ -25,6 +25,8 @@ public class DebtParts {
 	 */
 	public static ObservableList<Debt> getDebt(){
 
+		obList.clear();
+
 		String sql = "SELECT * FROM kan_system.debt where  USER_ID = \""+ ConstantData.getLoginUserID()+"\"";
 
 		ResultSet num;
@@ -41,7 +43,7 @@ public class DebtParts {
 	}
 
 	/**
-	 * 借金総額から返済金の合計を差し引いた情報を取得するメソッド
+	 * 借金総額から返済金の合計を差し引いた情報を更新するメソッド
 	 *
 	 */
 	public static void upDebt() {
@@ -52,6 +54,43 @@ public class DebtParts {
 
 		try {
 			num = SqlConnectionParts.sqlCreate(sql);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		System.out.println(num);
+	}
+
+
+	/**
+	 * 借金総額を新しく設定するメソッド
+	 * @param newDebt 新しい借金総額
+	 */
+	public static void upNewDebt(String newDebt) {
+		String sql ="update debt set debt = \"" + newDebt + "\"where user_id = \"" + ConstantData.getLoginUserID() + "\"";
+
+		int num = 0;
+
+		try {
+			num = SqlConnectionParts.sqlCreate(sql);
+			ConstantData.setCurrentDebt(Long.valueOf(newDebt));
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		System.out.println(num);
+	}
+
+	/**
+	 * 固定返済額を新しく設定するメソッド
+	 * @param newDebt 新しい固定返済額
+	 */
+	public static void upNewFixedMoney(String newFixedMoney) {
+		String sql ="update debt set fixed_money = \"" + newFixedMoney + "\"where user_id = \"" + ConstantData.getLoginUserID() + "\"";
+
+		int num = 0;
+
+		try {
+			num = SqlConnectionParts.sqlCreate(sql);
+			ConstantData.setCurrentFixedMoney(Long.valueOf(newFixedMoney));
 		} catch (SQLException e) {
 			// TODO: handle exception
 		}

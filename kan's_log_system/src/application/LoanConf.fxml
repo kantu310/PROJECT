@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoanConfController">
+   <children>
+      <Pane prefHeight="312.0" prefWidth="420.0">
+         <children>
+            <Label layoutX="60.0" layoutY="79.0" prefHeight="28.0" prefWidth="108.0" text="現在の借入金総額：" />
+            <Label layoutX="60.0" layoutY="188.0" prefHeight="28.0" prefWidth="126.0" text="現在の固定返済金額：" />
+            <TextField fx:id="newDebt" layoutX="60.0" layoutY="121.0" onKeyPressed="#onKeyPrsConfDbt" prefHeight="25.0" prefWidth="191.0" />
+            <TextField fx:id="newFixedmoney" layoutX="60.0" layoutY="226.0" onKeyPressed="#onKeyPrsConfFixedMoney" prefHeight="25.0" prefWidth="191.0" />
+            <Button fx:id="btnNewDebt" layoutX="266.0" layoutY="121.0" mnemonicParsing="false" onAction="#onBtnNewDebt" text="設定" />
+            <Button fx:id="btnNewBalance" layoutX="266.0" layoutY="226.0" mnemonicParsing="false" onAction="#onBtnNewBalance" text="設定" />
+            <Text fx:id="currentDebt" layoutX="187.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00000000" textAlignment="RIGHT" wrappingWidth="61.14995916187763" />
+            <Text fx:id="currentFixedMoney" layoutX="187.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00000000" textAlignment="RIGHT" wrappingWidth="61.149955190718174" />
+            <Text fx:id="currentDebt1" layoutX="29.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="設定" textAlignment="CENTER" wrappingWidth="61.14995916187763" />
+            <Button fx:id="btnClose" layoutX="339.0" layoutY="266.0" mnemonicParsing="false" onAction="#onBtnClose" prefHeight="25.0" prefWidth="61.0" text="閉じる" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
