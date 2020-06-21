@@ -44,6 +44,7 @@ public class LoanController extends Controller{
 	ObservableList<String> loanYearList = FXCollections.observableArrayList("2020","2021","2022","2023","2024","2025","2026","2027","2028","2029","2030","2031","2032");
 	ObservableList<String> loanMonthList = FXCollections.observableArrayList("01","02","03","04","05","06","07","08","09","10","11","12");
 	ObservableList<Repayment_balance> rs = RepaymentBalanceParts.getRepaymentBalance();
+	ArrayList<Repayment_balance> calList = new ArrayList<>();
 	static  ObservableList<Debt>  rs2 = DebtParts.getDebt();
 	static SimpleStringProperty aaa = new SimpleStringProperty(String.valueOf(rs2.get(0).debt_balance));
 
@@ -102,6 +103,8 @@ public class LoanController extends Controller{
     @FXML
     private ImageView loanConf;
 
+
+
 	@FXML
 	private void initialize() {
 
@@ -131,11 +134,11 @@ public class LoanController extends Controller{
 		boolean chk = false;
 		String sqlType = null;
 
-		ArrayList<Repayment_balance> calList = new ArrayList<>();
+
 
 		//前ゼロをトリム
 		String a = money.getText();
-		money.setText(a.replaceFirst("^0.+", "0"));
+		money.setText(a.replaceFirst("^0.+", ""));
 
 		//アラートダイアログ
 		Alert dialog = new Alert(AlertType.NONE , "登録しますか？" , ButtonType.YES , ButtonType.NO);
@@ -166,7 +169,7 @@ public class LoanController extends Controller{
 						rs2.clear();
 						rs2 = DebtParts.getDebt();
 						lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));//バインド分かんない。
-						debt_balance.setText(String.valueOf(rs2.get(0).debt_balance));//バインド分かんない。
+						aaa.set(String.valueOf(rs2.get(0).debt_balance));
 						dialog4.showAndWait();
 					}else if(diaRs2.get() == ButtonType.NO) {
 						chk = false;
@@ -185,7 +188,7 @@ public class LoanController extends Controller{
 						rs2.clear();
 						rs2 = DebtParts.getDebt();
 						lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
-						debt_balance.setText(String.valueOf(rs2.get(0).debt_balance));//バインド分かんない。
+						aaa.set(String.valueOf(rs2.get(0).debt_balance));
 						dialog4.showAndWait();
 					}else {
 						System.out.println("処理終了");
@@ -242,6 +245,14 @@ public class LoanController extends Controller{
 			return change;
 		});
 		money.setTextFormatter(lowerFormatter);
+
+		//文字数制限
+		int chkLength = 8;
+		int counter = money.getText().length();
+		if(counter > chkLength) {
+			money.setText(money.getText().substring(0, chkLength));
+		}
+
 	}
 
 	@FXML
@@ -281,6 +292,32 @@ public class LoanController extends Controller{
 
     	//AnchorPane pane = FXMLLoader.load(getClass().getResource("LoanConf.fxml"));
 		//loanpane.getChildren().setAll(pane);
+    }
+
+    @FXML
+    void onBtn_delete_row(ActionEvent event) {
+
+    	Alert dialog = new Alert(AlertType.NONE , "選択したデータを削除しますか？" , ButtonType.YES , ButtonType.NO);
+    	dialog.setTitle("確認");
+
+    	Optional<ButtonType> diaRs = dialog.showAndWait();
+
+    	if(diaRs.get() == ButtonType.YES) {
+
+    		RepaymentBalanceParts.deleteRepaymentBalanceRow(repayment_balance.getSelectionModel().getSelectedItem().loan_date);
+    		calList = RepaymentBalanceFunction.balanceReCal(RepaymentBalanceParts.getRepaymentBalance());
+    		RepaymentBalanceParts.upNewBalance(calList);
+    		rs.clear();
+    		rs = RepaymentBalanceParts.getRepaymentBalance();
+    		DebtParts.upDebt();
+    		rs2.clear();
+    		rs2 = DebtParts.getDebt();
+    		aaa.set(String.valueOf(rs2.get(0).debt_balance));
+    		lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
+
+    	}else if(diaRs.get() == ButtonType.NO) {
+    		dialog.close();
+    	}
     }
 
 

@@ -108,7 +108,26 @@ public class RepaymentBalanceParts {
 			// TODO: handle exception
 		}
 
+	}
+
+
+	/**
+	 * テーブルビューから選択した行を削除するメソッド
+	 * @param date  選択した日付
+	 */
+	public static void deleteRepaymentBalanceRow(String date) {
+
+		String sql  = "DELETE FROM kan_system.repayment_balance where " +ConstantData.getUserId()+" = \""+ConstantData.getLoginUserID()+"\" AND " +ConstantData.getLoanDate()+" = \""+date+"\"";
+		System.out.println(sql);
+		int num = 0;
+
+		try {
+			num = SqlConnectionParts.sqlCreate(sql);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
 		System.out.println(num);
+
 	}
 
 	/**

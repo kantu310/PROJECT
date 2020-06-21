@@ -111,6 +111,12 @@ public class LoanConfController extends LoanController {
 			return change;
 		});
 		newDebt.setTextFormatter(lowerFormatter);
+		//文字数制限
+		int chkLength = 10;
+		int counter = newDebt.getText().length();
+		if(counter > chkLength) {
+			newDebt.setText(newDebt.getText().substring(0, chkLength));
+		}
     }
 
     @FXML
@@ -126,6 +132,12 @@ public class LoanConfController extends LoanController {
 			return change;
 		});
 		newFixedmoney.setTextFormatter(lowerFormatter);
+		//文字数制限
+		int chkLength = 8;
+		int counter = newFixedmoney.getText().length();
+		if(counter > chkLength) {
+			newFixedmoney.setText(newFixedmoney.getText().substring(0, chkLength));
+		}
     }
 
     @FXML
