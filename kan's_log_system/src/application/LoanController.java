@@ -168,7 +168,7 @@ public class LoanController extends Controller{
 						DebtParts.upDebt();
 						rs2.clear();
 						rs2 = DebtParts.getDebt();
-						lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));//バインド分かんない。
+						lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
 						aaa.set(String.valueOf(rs2.get(0).debt_balance));
 						dialog4.showAndWait();
 					}else if(diaRs2.get() == ButtonType.NO) {
@@ -230,6 +230,8 @@ public class LoanController extends Controller{
 				}
 			}
 		}
+
+
 	}
 
 	@FXML
@@ -284,10 +286,11 @@ public class LoanController extends Controller{
 
 		Parent parent1 = FXMLLoader.load(getClass().getResource("LoanConf.fxml"));
 		Stage stage1 = new Stage();
-		Scene scene1 = new Scene(parent1,401,285);
+		Scene scene1 = new Scene(parent1);
 	 	stage1.initOwner(stage);
 		stage1.setScene(scene1);
 		stage1.initModality(Modality.APPLICATION_MODAL);
+		stage1.setTitle("設定");
 		stage1.showAndWait();
 
     	//AnchorPane pane = FXMLLoader.load(getClass().getResource("LoanConf.fxml"));

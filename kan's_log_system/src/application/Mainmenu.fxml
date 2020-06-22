@@ -10,11 +10,8 @@
 <AnchorPane prefHeight="430.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
    <children>
       <AnchorPane layoutX="173.0" layoutY="3.0" prefHeight="430.0" prefWidth="529.0">
-         <effect>
-            <DropShadow />
-         </effect>
          <children>
-            <Pane fx:id="pane_top" prefHeight="622.0" prefWidth="847.0" />
+            <Pane fx:id="pane_top" prefHeight="622.0" prefWidth="1130.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="625.0" prefWidth="171.0" style="-fx-background-color: #F0F7FF;">
