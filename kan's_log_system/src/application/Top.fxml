@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="500.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Pane layoutX="-1.0" prefHeight="500.0" prefWidth="1130.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+         <children>
+            <Text layoutX="368.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kan's Log System" textAlignment="CENTER" wrappingWidth="414.67225646972656">
+               <font>
+                  <Font name="Georgia" size="44.0" />
+               </font>
+            </Text>
+            <Text layoutX="345.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to KLS" textAlignment="CENTER" wrappingWidth="414.67225646972656">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </Text>
+            <ImageView layoutX="480.0" layoutY="294.0">
+               <image>
+                  <Image url="@../../../../../AppData/Local/Temp/icons8_fire_24px_2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="542.0" layoutY="292.0">
+               <image>
+                  <Image url="@../../../../../AppData/Local/Temp/icons8_movie_50px_1.png" />
+               </image>
+            </ImageView>
+            <ImageView layoutX="607.0" layoutY="293.0">
+               <image>
+                  <Image url="@../../../../../AppData/Local/Temp/icons8_book_26px_1.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

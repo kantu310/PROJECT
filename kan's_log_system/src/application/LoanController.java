@@ -126,6 +126,8 @@ public class LoanController extends Controller{
 
 		ConstantData.setCurrentDebt(rs2.get(0).debt);
 		ConstantData.setCurrentFixedMoney(rs2.get(0).fixed_money);
+
+		fullRepayedJudge();
 	}
 
 	@FXML
@@ -133,8 +135,6 @@ public class LoanController extends Controller{
 
 		boolean chk = false;
 		String sqlType = null;
-
-
 
 		//前ゼロをトリム
 		String a = money.getText();
@@ -170,6 +170,7 @@ public class LoanController extends Controller{
 						rs2 = DebtParts.getDebt();
 						lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
 						aaa.set(String.valueOf(rs2.get(0).debt_balance));
+						fullRepayedJudge();
 						dialog4.showAndWait();
 					}else if(diaRs2.get() == ButtonType.NO) {
 						chk = false;
@@ -189,6 +190,7 @@ public class LoanController extends Controller{
 						rs2 = DebtParts.getDebt();
 						lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
 						aaa.set(String.valueOf(rs2.get(0).debt_balance));
+						fullRepayedJudge();
 						dialog4.showAndWait();
 					}else {
 						System.out.println("処理終了");
@@ -207,6 +209,7 @@ public class LoanController extends Controller{
 						rs.clear();
 						rs = RepaymentBalanceParts.getRepaymentBalance();
 						lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
+						fullRepayedJudge();
 						dialog4.showAndWait();
 					}else if(diaRs2.get() == ButtonType.NO) {
 						chk = false;
@@ -222,6 +225,7 @@ public class LoanController extends Controller{
 						rs.clear();
 						rs = RepaymentBalanceParts.getRepaymentBalance();
 						lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
+						fullRepayedJudge();
 						dialog4.showAndWait();
 					}else {
 						System.out.println("処理終了");
@@ -231,8 +235,9 @@ public class LoanController extends Controller{
 			}
 		}
 
-
 	}
+
+
 
 	@FXML
 	void onKyPrsMoney(KeyEvent event) {
@@ -303,23 +308,31 @@ public class LoanController extends Controller{
     	Alert dialog = new Alert(AlertType.NONE , "選択したデータを削除しますか？" , ButtonType.YES , ButtonType.NO);
     	dialog.setTitle("確認");
 
-    	Optional<ButtonType> diaRs = dialog.showAndWait();
+    	if(repayment_balance.getSelectionModel().getSelectedIndex() != -1) {
+    		Optional<ButtonType> diaRs = dialog.showAndWait();
+    		if(diaRs.get() == ButtonType.YES) {
+    			RepaymentBalanceParts.deleteRepaymentBalanceRow(repayment_balance.getSelectionModel().getSelectedItem().loan_date);
+    			calList = RepaymentBalanceFunction.balanceReCal(RepaymentBalanceParts.getRepaymentBalance());
+    			RepaymentBalanceParts.upNewBalance(calList);
+    			rs.clear();
+    			rs = RepaymentBalanceParts.getRepaymentBalance();
+    			DebtParts.upDebt();
+    			rs2.clear();
+    			rs2 = DebtParts.getDebt();
+    			aaa.set(String.valueOf(rs2.get(0).debt_balance));
+    			lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
+    			fullRepayedJudge();
+    		}else if(diaRs.get() == ButtonType.NO) {
+    			dialog.close();
+    		}
+    	}
+    }
 
-    	if(diaRs.get() == ButtonType.YES) {
-
-    		RepaymentBalanceParts.deleteRepaymentBalanceRow(repayment_balance.getSelectionModel().getSelectedItem().loan_date);
-    		calList = RepaymentBalanceFunction.balanceReCal(RepaymentBalanceParts.getRepaymentBalance());
-    		RepaymentBalanceParts.upNewBalance(calList);
-    		rs.clear();
-    		rs = RepaymentBalanceParts.getRepaymentBalance();
-    		DebtParts.upDebt();
-    		rs2.clear();
-    		rs2 = DebtParts.getDebt();
-    		aaa.set(String.valueOf(rs2.get(0).debt_balance));
-    		lst_balance.setText(String.valueOf(rs.get(rs.size()-1).balance));
-
-    	}else if(diaRs.get() == ButtonType.NO) {
-    		dialog.close();
+    @FXML
+    void fullRepayedJudge() {
+    	if(Long.valueOf(debt_balance.getText()) <= 0) {
+    		aaa.set("完済");
+    		System.out.println("完済！");
     	}
     }
 

@@ -85,10 +85,15 @@ public class LoanConfController extends LoanController {
 		if(diaRs.get() == ButtonType.YES) {
 			DebtParts.upNewDebt(newDebt.getText());
 			DebtParts.upDebt();
-	    	ObservableList<Debt> ui= DebtParts.getDebt();
-	    	String bb =  String.valueOf(ui.get(0).debt_balance);
-	    	LoanController.aaa.set(bb);
+			ObservableList<Debt> ui= DebtParts.getDebt();
 
+			if(ui.get(0).debt_balance <=0) {
+				String bb =  "完済";
+				LoanController.aaa.set(bb);
+			}else {
+				String bb =  String.valueOf(ui.get(0).debt_balance);
+				LoanController.aaa.set(bb);
+			}
 			dialog2.setTitle("完了");
 			dialog2.showAndWait();
 			currentDebt.setText(String.valueOf(ConstantData.getCurrentDebt()));
