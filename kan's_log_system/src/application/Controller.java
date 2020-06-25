@@ -27,7 +27,7 @@ public class Controller extends Main{
 		UserParts s = new UserParts();
 		LoginFunction u = new LoginFunction();
 
-		//ユーザ情報を取得後、ログイン機能を呼び出してログイン結果を取得する
+		//ユーザ情報を取得後、ログイン機能を呼び出してログイン結果を取得しますします
 		boolean rs = u.loginUser(s.getUserInformation(), login_user_id.getText(), login_password.getText());
 
 		if (rs == true) {
