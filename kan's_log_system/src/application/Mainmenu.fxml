@@ -49,7 +49,7 @@
             <Button fx:id="btn_top" layoutX="45.0" layoutY="87.0" mnemonicParsing="false" onAction="#onButtonTop" prefHeight="25.0" prefWidth="126.0" text="Top" />
             <Button fx:id="btn_book" layoutX="45.0" layoutY="235.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Book" />
             <Button fx:id="btn_loan" layoutX="45.0" layoutY="136.0" mnemonicParsing="false" onAction="#onButtonLoan" prefHeight="25.0" prefWidth="126.0" text="Loan" />
-            <Button fx:id="btn_movie" layoutX="45.0" layoutY="184.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Movie" />
+            <Button fx:id="btn_movie" layoutX="45.0" layoutY="184.0" mnemonicParsing="false" onAction="#onButtonMovie" prefHeight="25.0" prefWidth="126.0" text="Movie" />
             <Button fx:id="btn_account" layoutX="45.0" layoutY="287.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Account" />
          </children>
          <effect>

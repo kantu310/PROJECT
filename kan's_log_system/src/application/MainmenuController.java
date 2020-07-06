@@ -62,6 +62,13 @@ public class MainmenuController extends Main{
 	}
 
     @FXML
+    void onButtonMovie(Event event) throws IOException {
+		AnchorPane pane = FXMLLoader.load(getClass().getResource("Movie.fxml"));
+		pane_top.getChildren().setAll(pane);
+
+    }
+
+    @FXML
     void onButtonTop(Event event) throws IOException {
 
 		AnchorPane pane = FXMLLoader.load(getClass().getResource("Top.fxml"));
