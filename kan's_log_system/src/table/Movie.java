@@ -13,11 +13,18 @@ public class Movie {
 	public int movie_popcorn;//ポップコーン度
 	public String movie_theater_name;//鑑賞映画館名
 	public String movie_ticket;//購入チケット
+	public String movie_seat;//購入座席
 	public int movie_time;//上映時間
 
 	//コンストラクタ
+
+
+	public int getMovie_id() {
+		return movie_id;
+	}
+
 	public Movie(int movie_id, Date movie_date, String movie_title, Blob movie_image, int movie_evaluation,
-			int movie_popcorn, String movie_theater_id, String movie_ticket, int movie_time) {
+			int movie_popcorn, String movie_theater_name, String movie_ticket, String movie_seat, int movie_time) {
 		super();
 		this.movie_id = movie_id;
 		this.movie_date = movie_date;
@@ -25,13 +32,10 @@ public class Movie {
 		this.movie_image = movie_image;
 		this.movie_evaluation = movie_evaluation;
 		this.movie_popcorn = movie_popcorn;
-		this.movie_theater_name = movie_theater_id;
+		this.movie_theater_name = movie_theater_name;
 		this.movie_ticket = movie_ticket;
+		this.movie_seat = movie_seat;
 		this.movie_time = movie_time;
-	}
-
-	public int getMovie_id() {
-		return movie_id;
 	}
 
 	public void setMovie_id(int movie_id) {

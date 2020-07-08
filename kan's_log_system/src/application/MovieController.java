@@ -1,21 +1,16 @@
 package application;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import parts.MovieParts;
+import table.Movie;
 
 public class MovieController extends Controller {
 
-	   @FXML
-	   ImageView imageView;
-
-
-	    @FXML
-	    private AnchorPane image;
-
-	    @FXML
-	    private ImageView imageView1;
+	public static ObservableList<Movie> movieList = FXCollections.observableArrayList();
 
 	    @FXML
 	    private ScrollPane scroll;
@@ -27,6 +22,15 @@ public class MovieController extends Controller {
 
     @FXML
     public void movieImageDisplay() {
+
+    	movieList = MovieParts.getMovie();
+   		VBox vb = new VBox();
+
+    	for (Movie movie : movieList) {
+    		for(int i = 0; i < 5; i++) {
+
+    		}
+		}
 
 
 

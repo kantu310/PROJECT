@@ -57,6 +57,23 @@ public  class ConstantData {
 		public static final String DEBT_BALANCE="DEBT_BALANCE";
 		public static final String FIXED_MONEY = "FIXED_MONEY";
 
+		//【movie】映画鑑賞テーブルのカラム
+		public static final String MOVIE_ID = "MOVIE_ID";
+		public static final String MOVIE_DATE = "MOVIE_DATE";
+		public static final String MOVIE_TITLE = "MOVIE_TITLE";
+		public static final String MOVIE_IMAGE = "MOVIE_IMAGE";
+		public static final String MOVIE_EVALUATION = "MOVIE_EVALUATION";
+		public static final String MOVIE_POPCORN = "MOVIE_POPCORN";
+		public static final String MOVIE_THEATER_ID ="MOVIE_THEATER_ID";
+		public static final String MOVIE_TICKET_ID ="MOVIE_TICKET_ID";
+		public static final String MOVIE_SEAT="MOVIE_SEAT";
+		public static final String MOVIE_TIME="MOVIE_TIME";
+
+		//【movie_theater】映画館テーブルのカラム
+		public static final String MOVIE_THEATER_NAME="MOVIE_THEATER_NAME";
+
+		//【movie_ticket】//映画チケットテーブルのカラム
+		public static final String MOVIE_TICKET="MOVIE_TICKET";
 
 		public static String getMysqlUrl() {
 			return MYSQL_URL;
@@ -94,5 +111,40 @@ public  class ConstantData {
 		public static String getDebtBalance() {
 			return DEBT_BALANCE;
 		}
+		public static String getMovieId() {
+			return MOVIE_ID;
+		}
+		public static String getMovieDate() {
+			return MOVIE_DATE;
+		}
+		public static String getMovieTitle() {
+			return MOVIE_TITLE;
+		}
+		public static String getMovieImage() {
+			return MOVIE_IMAGE;
+		}
+		public static String getMovieEvaluation() {
+			return MOVIE_EVALUATION;
+		}
+		public static String getMovieTheaterId() {
+			return MOVIE_THEATER_ID;
+		}
+		public static String getMovieTicketId() {
+			return MOVIE_TICKET_ID;
+		}
+		public static String getMovieSeat() {
+			return MOVIE_SEAT;
+		}
+		public static String getMovieTime() {
+			return MOVIE_TIME;
+		}
+		public static String getMovieTheaterName() {
+			return MOVIE_THEATER_NAME;
+		}
+		public static String getMovieTicket() {
+			return MOVIE_TICKET;
+		}
+
+
 
 }
