@@ -17,7 +17,7 @@
    <children>
       <AnchorPane layoutX="-2.0" prefHeight="82.0" prefWidth="1130.0" style="-fx-background-color: #F0F7FF;">
          <children>
-            <Text layoutX="56.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan balance" wrappingWidth="1037.970703125">
+            <Text layoutX="56.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loan" wrappingWidth="1037.970703125">
                <font>
                   <Font size="20.0" />
                </font>
