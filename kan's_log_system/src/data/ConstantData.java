@@ -69,6 +69,17 @@ public  class ConstantData {
 		public static final String MOVIE_SEAT="MOVIE_SEAT";
 		public static final String MOVIE_TIME="MOVIE_TIME";
 
+		public static int movie_id;
+
+
+		public static int getMovie_id() {
+			return movie_id;
+		}
+		public static void setMovie_id(int movie_id) {
+			ConstantData.movie_id = movie_id;
+		}
+
+
 		//【movie_theater】映画館テーブルのカラム
 		public static final String MOVIE_THEATER_NAME="MOVIE_THEATER_NAME";
 

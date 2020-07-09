@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="paneMovieDetail" prefHeight="633.0" prefWidth="935.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MoviedetailController">
+   <children>
+      <AnchorPane layoutX="-2.0" prefHeight="82.0" prefWidth="1130.0" style="-fx-background-color: #F0F7FF;">
+         <children>
+            <Text layoutX="56.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Movie" wrappingWidth="1037.970703125">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="23.0" layoutY="33.0">
+               <image>
+                  <Image url="@image/movie_50px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="imgMovie" fitHeight="314.0" fitWidth="264.0" layoutX="35.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Documents/movie/65f9ab21601154d2.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="381.0" layoutY="153.0" prefHeight="18.0" prefWidth="111.0" text="タイトル" />
+      <Label layoutX="381.0" layoutY="195.0" prefHeight="18.0" prefWidth="111.0" text="鑑賞日" />
+      <Label layoutX="381.0" layoutY="238.0" prefHeight="18.0" prefWidth="111.0" text="鑑賞劇場" />
+      <Label layoutX="381.0" layoutY="323.0" prefHeight="18.0" prefWidth="111.0" text="鑑賞シート" />
+      <Label layoutX="381.0" layoutY="283.0" prefHeight="18.0" prefWidth="111.0" text="チケット" />
+      <Label layoutX="381.0" layoutY="365.0" prefHeight="18.0" prefWidth="111.0" text="上映時間" />
+      <Label layoutX="381.0" layoutY="409.0" prefHeight="18.0" prefWidth="111.0" text="評価" />
+      <Label layoutX="381.0" layoutY="458.0" prefHeight="18.0" prefWidth="111.0" text="ポップコーン度" />
+      <Text fx:id="txtMovieTitle" layoutX="541.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="186.11175249957978" />
+      <Text fx:id="txtMovieDate" layoutX="541.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATE" wrappingWidth="186.11174467727642" />
+      <Text fx:id="txtMovieTheater" layoutX="541.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="theater" wrappingWidth="186.11174467727642" />
+      <Text fx:id="txtMovieTicket" layoutX="541.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ticket" wrappingWidth="186.11174467727642" />
+      <Text fx:id="txtMovieSeat" layoutX="541.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="seat" wrappingWidth="186.11174467727642" />
+      <Text fx:id="txtMovieTime" layoutX="541.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="time" wrappingWidth="186.11174467727642" />
+      <ImageView fx:id="btnBackMovie" fitHeight="27.0" fitWidth="26.0" layoutX="35.0" layoutY="113.0" onMouseClicked="#onMouseBtnBackMovie" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/back_arrow_32px.png" />
+         </image>
+      </ImageView>
+      <HBox fx:id="hBoxMovieEval" layoutX="534.0" layoutY="401.0" prefHeight="34.0" prefWidth="123.0" />
+      <HBox fx:id="hBoxMoviePop" layoutX="534.0" layoutY="450.0" prefHeight="34.0" prefWidth="123.0" />
+   </children>
+</AnchorPane>
