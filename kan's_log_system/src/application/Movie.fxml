@@ -36,6 +36,19 @@
                </padding>
             </FlowPane>
          </content></ScrollPane>
-      <Text fx:id="movie_year" layoutX="30.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="movie_year" textAlignment="CENTER" wrappingWidth="77.33669662475586" />
+      <Text fx:id="movie_year" layoutX="46.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="movie_year" textAlignment="CENTER" wrappingWidth="109.33669662475586">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <ImageView fx:id="btnMovieYearBk" fitHeight="20.0" fitWidth="26.0" layoutX="155.0" layoutY="121.0" onMouseClicked="#onBtnMovieYearBk" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/arrow_24px.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="btnMovieYearFr" fitHeight="20.0" fitWidth="26.0" layoutX="26.0" layoutY="121.0" onMouseClicked="#onBtnMovieYearFr" pickOnBounds="true" preserveRatio="true" rotate="180.0" visible="false">
+         <image>
+            <Image url="@image/arrow_24px.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
