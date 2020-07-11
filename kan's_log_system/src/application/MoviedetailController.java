@@ -1,5 +1,6 @@
 package application;
 
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -7,8 +8,13 @@ import java.io.InputStream;
 import java.sql.SQLException;
 
 import data.ConstantData;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,11 +25,14 @@ import table.Movie;
 
 public class MoviedetailController extends MovieController{
 
-    @FXML
-    private AnchorPane paneMovieDetail;
+	public static int evalCnt;
+	public static int popCnt;
+	public static int evalRet;
+	public static int popRet;
+
 
     @FXML
-    private ImageView imgMovie;
+    private AnchorPane paneMovieDetail;
 
     @FXML
     private Text txtMovieTitle;
@@ -47,10 +56,66 @@ public class MoviedetailController extends MovieController{
     private ImageView btnBackMovie;
 
     @FXML
+    private ImageView btnBackEditMode;
+
+    @FXML
+    private ImageView regImageMovie;
+
+    @FXML
+    private ImageView imgMovie;
+
+    @FXML
+    private ImageView upEval;
+
+    @FXML
+    private ImageView dwEval;
+
+    @FXML
+    private ImageView upPop;
+
+    @FXML
+    private ImageView dePop;
+
+    @FXML
     private HBox hBoxMovieEval;
 
     @FXML
+    private HBox regHBoxMovieEval;
+
+    @FXML
     private HBox hBoxMoviePop;
+
+    @FXML
+    private HBox regHBoxMoviePop;
+
+    @FXML
+    private TextField regMovieTitle;
+
+    @FXML
+    private TextField regMovieSeat;
+
+    @FXML
+    private TextField regMovieTime;
+
+    @FXML
+    private DatePicker regMovieDate;
+
+    @FXML
+    private ComboBox<?> regMobieTheater;
+
+    @FXML
+    private ComboBox<?> regMovieTicket;
+
+    @FXML
+    private Button btnEditMode;
+
+    @FXML
+    private Button btnFileCho;
+
+    @FXML
+    private Button btnReg;
+
+
 
 
     @FXML
@@ -82,7 +147,15 @@ public class MoviedetailController extends MovieController{
     			txtMovieSeat.setText(movie.movie_seat);//鑑賞シート表示
     			txtMovieTime.setText(String.valueOf(movie.movie_time + "分"));//上映時間表示
 
+    			//編集モードのノードにも値を設定
+    	        regMovieTitle.setText(txtMovieTitle.getText());
+    	        regMovieSeat.setText(txtMovieSeat.getText());
+    	        String regMoTime = txtMovieTime.getText();
+    	        regMovieTime.setText(regMoTime.replace("分", ""));//"分"トリム
+    	        regImageMovie.setImage(imgMovie.getImage());
+
     			//評価表示
+    	        evalRet = movie.movie_evaluation;//評価値を保持
     			for(int i = 0; i < movie.movie_evaluation; i++) {
     				Image img = new Image("application/image/star_48px.png");
     				ImageView evImg = new ImageView(img);
@@ -92,9 +165,11 @@ public class MoviedetailController extends MovieController{
     			}
 
     			//ポップコーン度表示
+    			popRet = movie.movie_popcorn;//評価値を保持
     			for(int i = 0; i < movie.movie_popcorn; i++) {
     				Image img = new Image("application/image/popcorn_48px.png");
     				ImageView evImg = new ImageView(img);
+
     				evImg.setFitWidth(30);
     				evImg.setFitHeight(30);
     				hBoxMoviePop.getChildren().add(evImg);
@@ -118,6 +193,78 @@ public class MoviedetailController extends MovieController{
     }
 
 
+    @FXML
+    void onBtnEditMode(ActionEvent event) {
+
+    	//非表示
+    	txtMovieTitle.setVisible(false);
+    	txtMovieDate.setVisible(false);
+    	txtMovieTheater.setVisible(false);
+    	txtMovieTicket.setVisible(false);
+    	txtMovieSeat.setVisible(false);
+    	txtMovieTime.setVisible(false);
+    	btnBackMovie.setVisible(false);
+    	imgMovie.setVisible(false);
+    	btnBackMovie.setVisible(false);
+        btnEditMode.setVisible(false);
+
+        //編集モード表示
+        regMovieTitle.setVisible(true);
+        regMovieSeat.setVisible(true);
+        regMovieTime.setVisible(true);
+        regMovieDate.setVisible(true);
+        regMobieTheater.setVisible(true);
+        regMovieTicket.setVisible(true);
+        regImageMovie.setVisible(true);
+        btnFileCho.setVisible(true);
+        btnReg.setVisible(true);
+        btnBackEditMode.setVisible(true);
+        upEval.setVisible(true);
+        dwEval.setVisible(true);
+        upPop.setVisible(true);
+        dePop.setVisible(true);
+    }
+
+    @FXML
+    void onBtnFileCho(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onMouseBtnBackEditMode(MouseEvent event) {
+    	//編集モードを非表示して、詳細画面を表示する
+    	txtMovieTitle.setVisible(true);
+    	txtMovieTitle.setVisible(true);
+    	txtMovieDate.setVisible(true);
+    	txtMovieTheater.setVisible(true);
+    	txtMovieTicket.setVisible(true);
+    	txtMovieSeat.setVisible(true);
+    	txtMovieTime.setVisible(true);
+    	btnBackMovie.setVisible(true);
+    	hBoxMovieEval.setVisible(true);
+    	hBoxMoviePop.setVisible(true);
+    	imgMovie.setVisible(true);
+    	btnBackMovie.setVisible(true);
+        btnEditMode.setVisible(true);
+
+        regMovieTitle.setVisible(false);
+        regMovieSeat.setVisible(false);
+        regMovieTime.setVisible(false);
+        regMovieDate.setVisible(false);
+        regMobieTheater.setVisible(false);
+        regMovieTicket.setVisible(false);
+        regHBoxMoviePop.setVisible(false);
+        regHBoxMovieEval.setVisible(false);
+        btnFileCho.setVisible(false);
+        btnReg.setVisible(false);
+        btnBackEditMode.setVisible(false);
+        upEval.setVisible(false);
+        dwEval.setVisible(false);
+        upPop.setVisible(false);
+        dePop.setVisible(false);
+
+
+    }
 
 
 }
