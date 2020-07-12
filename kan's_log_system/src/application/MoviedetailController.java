@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import data.ConstantData;
 import javafx.event.ActionEvent;
@@ -27,9 +28,6 @@ public class MoviedetailController extends MovieController{
 
 	public static int evalCnt;
 	public static int popCnt;
-	public static int evalRet;
-	public static int popRet;
-
 
     @FXML
     private AnchorPane paneMovieDetail;
@@ -74,7 +72,7 @@ public class MoviedetailController extends MovieController{
     private ImageView upPop;
 
     @FXML
-    private ImageView dePop;
+    private ImageView dwPop;
 
     @FXML
     private HBox hBoxMovieEval;
@@ -147,15 +145,9 @@ public class MoviedetailController extends MovieController{
     			txtMovieSeat.setText(movie.movie_seat);//鑑賞シート表示
     			txtMovieTime.setText(String.valueOf(movie.movie_time + "分"));//上映時間表示
 
-    			//編集モードのノードにも値を設定
-    	        regMovieTitle.setText(txtMovieTitle.getText());
-    	        regMovieSeat.setText(txtMovieSeat.getText());
-    	        String regMoTime = txtMovieTime.getText();
-    	        regMovieTime.setText(regMoTime.replace("分", ""));//"分"トリム
-    	        regImageMovie.setImage(imgMovie.getImage());
 
     			//評価表示
-    	        evalRet = movie.movie_evaluation;//評価値を保持
+    	        evalCnt = movie.movie_evaluation;//評価値を保持
     			for(int i = 0; i < movie.movie_evaluation; i++) {
     				Image img = new Image("application/image/star_48px.png");
     				ImageView evImg = new ImageView(img);
@@ -165,7 +157,7 @@ public class MoviedetailController extends MovieController{
     			}
 
     			//ポップコーン度表示
-    			popRet = movie.movie_popcorn;//評価値を保持
+    			popCnt = movie.movie_popcorn;//評価値を保持
     			for(int i = 0; i < movie.movie_popcorn; i++) {
     				Image img = new Image("application/image/popcorn_48px.png");
     				ImageView evImg = new ImageView(img);
@@ -188,8 +180,6 @@ public class MoviedetailController extends MovieController{
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
-
-
     }
 
 
@@ -219,10 +209,33 @@ public class MoviedetailController extends MovieController{
         btnFileCho.setVisible(true);
         btnReg.setVisible(true);
         btnBackEditMode.setVisible(true);
-        upEval.setVisible(true);
-        dwEval.setVisible(true);
-        upPop.setVisible(true);
-        dePop.setVisible(true);
+        if(!(evalCnt == 5)) {
+        	upEval.setVisible(true);
+        }
+        if(!(evalCnt ==0)) {
+            dwEval.setVisible(true);
+        }
+
+        if(!(popCnt == 5)) {
+            upPop.setVisible(true);
+        }
+        if(!(popCnt ==0)) {
+            dwPop.setVisible(true);
+        }
+
+		//編集モードのノードにも値を設定
+        regMovieTitle.clear();
+        regMovieSeat.clear();
+        regMovieTime.clear();
+        regMovieTime.clear();
+        regMovieTitle.setText(txtMovieTitle.getText());
+        regMovieSeat.setText(txtMovieSeat.getText());
+        String regMoTime = txtMovieTime.getText();
+        regMovieTime.setText(regMoTime.replace("分", ""));//"分"トリム
+        regImageMovie.setImage(imgMovie.getImage());
+        LocalDate loDate = LocalDate.parse(txtMovieDate.getText());
+        regMovieDate.setValue(loDate);
+
     }
 
     @FXML
@@ -246,7 +259,7 @@ public class MoviedetailController extends MovieController{
     	imgMovie.setVisible(true);
     	btnBackMovie.setVisible(true);
         btnEditMode.setVisible(true);
-
+        //編集モード非表示
         regMovieTitle.setVisible(false);
         regMovieSeat.setVisible(false);
         regMovieTime.setVisible(false);
@@ -261,10 +274,97 @@ public class MoviedetailController extends MovieController{
         upEval.setVisible(false);
         dwEval.setVisible(false);
         upPop.setVisible(false);
-        dePop.setVisible(false);
+        dwPop.setVisible(false);
 
+        hBoxMovieEval.getChildren().clear();
+        hBoxMoviePop.getChildren().clear();
 
+    	for (Movie movie : movieList) {
+    		if(movie.movie_id == ConstantData.getMovie_id()) {
+    			//評価表示
+    			for(int i = 0; i < movie.movie_evaluation; i++) {
+    				Image img = new Image("application/image/star_48px.png");
+    				ImageView evImg = new ImageView(img);
+    				evImg.setFitWidth(30);
+    				evImg.setFitHeight(30);
+    				hBoxMovieEval.getChildren().add(evImg);
+    			}
+    		     evalCnt = movie.movie_evaluation;//カウンターリセット
+
+    			//ポップコーン度表示
+    			for(int i = 0; i < movie.movie_popcorn; i++) {
+    				Image img = new Image("application/image/popcorn_48px.png");
+    				ImageView evImg = new ImageView(img);
+    				evImg.setFitWidth(30);
+    				evImg.setFitHeight(30);
+    				hBoxMoviePop.getChildren().add(evImg);
+    			}
+    			popCnt = movie.movie_popcorn;//カウンターリセット
+    		}
+    	}
     }
 
+    @FXML
+    void onUpEval(MouseEvent event) {
+    	if(!(evalCnt == 5)) {
+    		evalCnt = evalCnt + 1;
+    		dwEval.setVisible(true);
+			Image img = new Image("application/image/star_48px.png");
+			ImageView evImg = new ImageView(img);
+			evImg.setFitWidth(30);
+			evImg.setFitHeight(30);
+			hBoxMovieEval.getChildren().add(evImg);
+			System.out.println(evalCnt);
+    	}
+    	if(evalCnt == 5) {
+    		upEval.setVisible(false);
+			System.out.println(evalCnt);
+    	}
+    }
 
+    @FXML
+    void onDwEval(MouseEvent event) {
+    	if(!(evalCnt == 0)) {
+    		evalCnt = evalCnt - 1;
+    		upEval.setVisible(true);
+			hBoxMovieEval.getChildren().remove(evalCnt);
+			System.out.println(evalCnt);
+    	}
+    	if(evalCnt == 0) {
+    		dwEval.setVisible(false);
+			System.out.println(evalCnt);
+    	}
+    }
+
+    @FXML
+    void onUpPop(MouseEvent event) {
+    	if(!(popCnt == 5)) {
+    		popCnt = popCnt + 1;
+    		dwPop.setVisible(true);
+			Image img = new Image("application/image/popcorn_48px.png");
+			ImageView evImg = new ImageView(img);
+			evImg.setFitWidth(30);
+			evImg.setFitHeight(30);
+			hBoxMoviePop.getChildren().add(evImg);
+			System.out.println(popCnt);
+    	}
+    	if(popCnt == 5) {
+    		upPop.setVisible(false);
+			System.out.println(popCnt);
+    	}
+    }
+
+    @FXML
+    void onDwPop(MouseEvent event) {
+    	if(!(popCnt == 0)) {
+    		popCnt = popCnt - 1;
+    		upPop.setVisible(true);
+			hBoxMoviePop.getChildren().remove(popCnt);
+			System.out.println(popCnt);
+    	}
+    	if(popCnt == 0) {
+    		dwPop.setVisible(false);
+			System.out.println(popCnt);
+    	}
+    }
 }

@@ -63,22 +63,22 @@
       <TextField fx:id="regMovieSeat" layoutX="534.0" layoutY="319.0" visible="false" />
       <TextField fx:id="regMovieTime" layoutX="534.0" layoutY="361.0" visible="false" />
       <ImageView fx:id="regImageMovie" fitHeight="314.0" fitWidth="222.0" layoutX="35.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-      <ImageView fx:id="upEval" fitHeight="25.0" fitWidth="26.0" layoutX="696.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="upEval" fitHeight="25.0" fitWidth="26.0" layoutX="696.0" layoutY="406.0" onMouseClicked="#onUpEval" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@image/arrow_24px.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="dwEval" fitHeight="25.0" fitWidth="26.0" layoutX="500.0" layoutY="406.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" visible="false">
+      <ImageView fx:id="dwEval" fitHeight="25.0" fitWidth="26.0" layoutX="500.0" layoutY="406.0" onMouseClicked="#onDwEval" pickOnBounds="true" preserveRatio="true" rotate="180.0" visible="false">
          <image>
             <Image url="@image/arrow_24px.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="upPop" fitHeight="25.0" fitWidth="26.0" layoutX="696.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="upPop" fitHeight="25.0" fitWidth="26.0" layoutX="696.0" layoutY="455.0" onMouseClicked="#onUpPop" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@image/arrow_24px.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="dePop" fitHeight="25.0" fitWidth="26.0" layoutX="500.0" layoutY="455.0" pickOnBounds="true" preserveRatio="true" rotate="180.0" visible="false">
+      <ImageView fx:id="dwPop" fitHeight="25.0" fitWidth="26.0" layoutX="500.0" layoutY="455.0" onMouseClicked="#onDwPop" pickOnBounds="true" preserveRatio="true" rotate="180.0" visible="false">
          <image>
             <Image url="@image/arrow_24px.png" />
          </image>
