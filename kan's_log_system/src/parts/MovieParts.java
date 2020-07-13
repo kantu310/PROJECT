@@ -52,10 +52,7 @@ public class MovieParts {
 		}
 
 		System.out.println(obList);
-
-
 		return obList;
-
 	}
 
 }

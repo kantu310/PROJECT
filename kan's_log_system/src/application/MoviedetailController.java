@@ -3,12 +3,17 @@ package application;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
 import data.ConstantData;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,12 +27,20 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import parts.MovieTheaterParts;
+import parts.MovieTicketParts;
 import table.Movie;
+import table.MovieTheater;
+import table.MovieTicket;
 
 public class MoviedetailController extends MovieController{
 
 	public static int evalCnt;
 	public static int popCnt;
+	public static ObservableList<MovieTheater> movieThList = FXCollections.observableArrayList();
+	public static ObservableList<MovieTicket> movieTicList = FXCollections.observableArrayList();
 
     @FXML
     private AnchorPane paneMovieDetail;
@@ -99,13 +112,13 @@ public class MoviedetailController extends MovieController{
     private DatePicker regMovieDate;
 
     @FXML
-    private ComboBox<?> regMobieTheater;
+    private ComboBox<String> regMovieTheater;
 
     @FXML
-    private ComboBox<?> regMovieTicket;
+    private ComboBox<String> regMovieTicket;
 
     @FXML
-    private Button btnEditMode;
+    private ImageView btnEditMode;
 
     @FXML
     private Button btnFileCho;
@@ -145,7 +158,6 @@ public class MoviedetailController extends MovieController{
     			txtMovieSeat.setText(movie.movie_seat);//鑑賞シート表示
     			txtMovieTime.setText(String.valueOf(movie.movie_time + "分"));//上映時間表示
 
-
     			//評価表示
     	        evalCnt = movie.movie_evaluation;//評価値を保持
     			for(int i = 0; i < movie.movie_evaluation; i++) {
@@ -166,9 +178,17 @@ public class MoviedetailController extends MovieController{
     				evImg.setFitHeight(30);
     				hBoxMoviePop.getChildren().add(evImg);
     			}
+
+    			movieThList = MovieTheaterParts.getMovieTheater();
+    			movieTicList = MovieTicketParts.getMovieTicket();
+    			for (MovieTheater th : movieThList) {
+					String thName = th.movie_theater_name;
+	    			regMovieTheater.getItems().addAll(thName);
+				}
     		}
     	}
     }
+
 
     @FXML
     void onMouseBtnBackMovie(MouseEvent event) {
@@ -184,7 +204,7 @@ public class MoviedetailController extends MovieController{
 
 
     @FXML
-    void onBtnEditMode(ActionEvent event) {
+    void onBtnEditMode(MouseEvent event) {
 
     	//非表示
     	txtMovieTitle.setVisible(false);
@@ -203,7 +223,7 @@ public class MoviedetailController extends MovieController{
         regMovieSeat.setVisible(true);
         regMovieTime.setVisible(true);
         regMovieDate.setVisible(true);
-        regMobieTheater.setVisible(true);
+        regMovieTheater.setVisible(true);
         regMovieTicket.setVisible(true);
         regImageMovie.setVisible(true);
         btnFileCho.setVisible(true);
@@ -240,7 +260,17 @@ public class MoviedetailController extends MovieController{
 
     @FXML
     void onBtnFileCho(ActionEvent event) {
-
+    	FileChooser fc = new FileChooser();
+    	fc.setTitle("ファイルを開く");
+    	fc.getExtensionFilters().addAll(new  ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+    	File selectedFile = fc.showOpenDialog(stage);
+    	try {
+			FileInputStream fis = new FileInputStream(selectedFile);
+			Image img = new Image(fis);
+			regImageMovie.setImage(img);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
     }
 
     @FXML
@@ -264,7 +294,7 @@ public class MoviedetailController extends MovieController{
         regMovieSeat.setVisible(false);
         regMovieTime.setVisible(false);
         regMovieDate.setVisible(false);
-        regMobieTheater.setVisible(false);
+        regMovieTheater.setVisible(false);
         regMovieTicket.setVisible(false);
         regHBoxMoviePop.setVisible(false);
         regHBoxMovieEval.setVisible(false);
@@ -275,13 +305,14 @@ public class MoviedetailController extends MovieController{
         dwEval.setVisible(false);
         upPop.setVisible(false);
         dwPop.setVisible(false);
-
+        //リセット
         hBoxMovieEval.getChildren().clear();
         hBoxMoviePop.getChildren().clear();
+        regImageMovie.setImage(null);
 
     	for (Movie movie : movieList) {
     		if(movie.movie_id == ConstantData.getMovie_id()) {
-    			//評価表示
+    			//評価再表示
     			for(int i = 0; i < movie.movie_evaluation; i++) {
     				Image img = new Image("application/image/star_48px.png");
     				ImageView evImg = new ImageView(img);
@@ -291,7 +322,7 @@ public class MoviedetailController extends MovieController{
     			}
     		     evalCnt = movie.movie_evaluation;//カウンターリセット
 
-    			//ポップコーン度表示
+    			//ポップコーン度再表示
     			for(int i = 0; i < movie.movie_popcorn; i++) {
     				Image img = new Image("application/image/popcorn_48px.png");
     				ImageView evImg = new ImageView(img);
@@ -366,5 +397,32 @@ public class MoviedetailController extends MovieController{
     		dwPop.setVisible(false);
 			System.out.println(popCnt);
     	}
+    }
+
+    @FXML
+    void onSelectedMovieTheater(ActionEvent event) {
+    	//チケットコンボボックスリセット
+    	regMovieTicket.getItems().clear();
+    	//共通のチケットを設定
+    	for (MovieTicket a : movieTicList) {
+    		if(a.movie_theater_type_id.equals("common")) {
+    			String Name = a.movie_ticket;
+    			regMovieTicket.getItems().add(Name);
+    		}
+    	}
+    	//映画館コンボボックスで設定した映画館の種類と一致するチケットを設定
+    	for (MovieTheater aa: movieThList) {
+    		if(regMovieTheater.getValue().equals(aa.movie_theater_name)) {
+    			String theaterId = aa.movie_theater_type_id;
+    			for (MovieTicket bb : movieTicList) {
+    				if(theaterId.equals(bb.movie_theater_type_id)) {
+    					String ticName = bb.movie_ticket;
+    					regMovieTicket.getItems().addAll(ticName);
+    				}
+    			}
+    		}
+
+    	}
+
     }
 }

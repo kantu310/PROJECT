@@ -56,10 +56,10 @@
       <HBox fx:id="regHBoxMovieEval" prefHeight="34.0" prefWidth="123.0" visible="false" />
       <HBox fx:id="hBoxMoviePop" layoutX="534.0" layoutY="450.0" prefHeight="34.0" prefWidth="123.0" />
       <HBox fx:id="regHBoxMoviePop" prefHeight="34.0" prefWidth="123.0" visible="false" />
-      <TextField fx:id="regMovieTitle" layoutX="534.0" layoutY="149.0" visible="false" />
+      <TextField fx:id="regMovieTitle" layoutX="534.0" layoutY="149.0" prefHeight="26.0" prefWidth="204.0" visible="false" />
       <DatePicker fx:id="regMovieDate" layoutX="534.0" layoutY="192.0" visible="false" />
-      <ComboBox fx:id="regMobieTheater" layoutX="533.0" layoutY="235.0" prefWidth="150.0" visible="false" />
-      <ComboBox fx:id="regMovieTicket" layoutX="533.0" layoutY="279.0" prefWidth="150.0" visible="false" />
+      <ComboBox fx:id="regMovieTheater" layoutX="533.0" layoutY="235.0" onAction="#onSelectedMovieTheater" prefHeight="26.0" prefWidth="222.0" visible="false" />
+      <ComboBox fx:id="regMovieTicket" layoutX="533.0" layoutY="279.0" prefHeight="26.0" prefWidth="222.0" visible="false" />
       <TextField fx:id="regMovieSeat" layoutX="534.0" layoutY="319.0" visible="false" />
       <TextField fx:id="regMovieTime" layoutX="534.0" layoutY="361.0" visible="false" />
       <ImageView fx:id="regImageMovie" fitHeight="314.0" fitWidth="222.0" layoutX="35.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" visible="false" />
@@ -83,12 +83,16 @@
             <Image url="@image/arrow_24px.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnEditMode" layoutX="71.0" layoutY="114.0" mnemonicParsing="false" onAction="#onBtnEditMode" text="編集" />
       <Button fx:id="btnReg" layoutX="688.0" layoutY="512.0" mnemonicParsing="false" text="登録" visible="false" />
       <Button fx:id="btnFileCho" layoutX="193.0" layoutY="480.0" mnemonicParsing="false" onAction="#onBtnFileCho" text="画像選択" visible="false" />
       <ImageView fx:id="btnBackEditMode" fitHeight="27.0" fitWidth="26.0" layoutX="35.0" layoutY="113.0" onMouseClicked="#onMouseBtnBackEditMode" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@image/back_arrow_32px.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="btnEditMode" fitHeight="18.0" fitWidth="25.0" layoutX="74.0" layoutY="117.0" onMouseClicked="#onBtnEditMode" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/edit_24px.png" />
          </image>
       </ImageView>
    </children>
