@@ -8,8 +8,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Optional;
 
 import data.ConstantData;
 import javafx.collections.FXCollections;
@@ -17,7 +22,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -39,6 +47,9 @@ public class MoviedetailController extends MovieController{
 
 	public static int evalCnt;
 	public static int popCnt;
+	public static Blob regImage;
+	public static FileInputStream fis;
+	public static File selectedFile;
 	public static ObservableList<MovieTheater> movieThList = FXCollections.observableArrayList();
 	public static ObservableList<MovieTicket> movieTicList = FXCollections.observableArrayList();
 
@@ -263,11 +274,12 @@ public class MoviedetailController extends MovieController{
     	FileChooser fc = new FileChooser();
     	fc.setTitle("ファイルを開く");
     	fc.getExtensionFilters().addAll(new  ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-    	File selectedFile = fc.showOpenDialog(stage);
+    	selectedFile = fc.showOpenDialog(stage);
     	try {
-			FileInputStream fis = new FileInputStream(selectedFile);
+			fis = new FileInputStream(selectedFile);
 			Image img = new Image(fis);
 			regImageMovie.setImage(img);
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -421,8 +433,61 @@ public class MoviedetailController extends MovieController{
     				}
     			}
     		}
-
     	}
+    }
+
+
+
+    @FXML
+    void onBtnReg(ActionEvent event) throws FileNotFoundException {
+    	Alert dialog = new Alert(AlertType.NONE,"登録しますか？",ButtonType.YES,ButtonType.NO);
+    	dialog.setTitle("確認");
+		Alert dialog2 = new Alert(AlertType.NONE, "入力されていない項目があります", ButtonType.OK);
+		dialog2.setTitle("エラー");
+
+
+		if(regMovieTitle.getText() == null ||
+				regMovieDate.getValue() == null ||
+				regMovieTheater.getValue() == null ||
+				regMovieTicket.getValue() == null ||
+				regMovieSeat.getText() == null ||
+				regMovieTime.getText() == null) {
+			dialog2.showAndWait();
+		}else {
+			Optional<ButtonType >diaRs =dialog.showAndWait();
+			if(diaRs.get() == ButtonType.YES) {
+				Connection conn =null;
+				fis = new FileInputStream(selectedFile);
+				System.out.println((int)selectedFile.length()+"upup");
+
+				try {
+					conn = DriverManager.getConnection(ConstantData.MYSQL_URL, ConstantData.MYSQL_USER,
+							ConstantData.MYSQL_PASSWORD);
+					String sql = "update kan_system.movie set movie_date = ?, movie_title = ?, movie_image = ?, movie_evaluation =?, movie_popcorn = ?, movie_seat = ?, movie_time = ? where movie_id = ?";
+					PreparedStatement stmt = conn.prepareStatement(sql);
+
+					stmt.setString(1,regMovieDate.getValue().toString());
+					stmt.setString(2, regMovieTitle.getText());
+					stmt.setBinaryStream(3, (InputStream)fis,(int)selectedFile.length());
+					stmt.setInt(4, evalCnt);
+					stmt.setInt(5, popCnt);
+					stmt.setString(6, regMovieSeat.getText());
+					stmt.setInt(7, Integer.valueOf(regMovieTime.getText()));
+					stmt.setInt(8, ConstantData.getMovie_id());
+
+					int r = stmt.executeUpdate();
+
+				} catch (SQLException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
+
+
+			}else if(diaRs.get() == ButtonType.NO){
+				dialog.close();
+			}
+		}
+
 
     }
 }

@@ -1,11 +1,13 @@
 package parts;
 
+import java.sql.Blob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import data.ConstantData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.PieChart.Data;
 import table.Movie;
 
 public class MovieParts {
@@ -53,6 +55,29 @@ public class MovieParts {
 
 		System.out.println(obList);
 		return obList;
+	}
+
+	public static void setMovie(Data date, String title,Blob image, int eval, int pop, String seat, int time) {
+
+
+		String sql = "update kan_system.movie "
+				+ "set movie_date =" + date
+				+ "movie_title =" + title
+				+"movie_image =" + image
+				+"movie_evaluation ="+ eval
+				+"movie_popcorn =" + pop
+				+"movie_seat =" + seat
+				+"movie_time =" + time;
+
+		int num = 0;
+
+		try {
+			num = SqlConnectionParts.sqlCreate(sql);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+
+		System.out.println(num);
 	}
 
 }
