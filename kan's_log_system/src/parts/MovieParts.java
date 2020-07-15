@@ -30,7 +30,7 @@ public class MovieParts {
 				"JOIN movie_theater ON movie.MOVIE_THEATER_ID = movie_theater.MOVIE_THEATER_ID\r\n" +
 				"JOIN movie_ticket ON movie.MOVIE_TICKET_ID = movie_ticket.MOVIE_TICKET_ID\r\n" +
 				"WHERE USER_ID = \""+ ConstantData.getLoginUserID()+"\"\r\n" +
-				"ORDER BY MOVIE_DATE DESC;";
+				"ORDER BY MOVIE_DATE;";
 
 		ResultSet num;
 		try {

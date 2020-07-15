@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -47,9 +46,10 @@ public class MoviedetailController extends MovieController{
 
 	public static int evalCnt;
 	public static int popCnt;
-	public static Blob regImage;
-	public static FileInputStream fis;
-	public static File selectedFile;
+	public  FileInputStream fis = null;
+	public  File selectedFile = null;
+	public  InputStream is = null;
+	byte[] r = null;
 	public static ObservableList<MovieTheater> movieThList = FXCollections.observableArrayList();
 	public static ObservableList<MovieTicket> movieTicList = FXCollections.observableArrayList();
 
@@ -146,8 +146,8 @@ public class MoviedetailController extends MovieController{
     	for (Movie movie : movieList) {
     		if(movie.movie_id == ConstantData.getMovie_id()) {
     			//イメージを表示
-    			byte[] r = null;
-    			InputStream is = movie.movie_image.getBinaryStream();
+
+    			is = movie.movie_image.getBinaryStream();
     			ByteArrayOutputStream baos = new ByteArrayOutputStream();
     			byte[] bs = new byte [1024];
     			int size = 0;
@@ -444,7 +444,8 @@ public class MoviedetailController extends MovieController{
     	dialog.setTitle("確認");
 		Alert dialog2 = new Alert(AlertType.NONE, "入力されていない項目があります", ButtonType.OK);
 		dialog2.setTitle("エラー");
-
+    	Alert dialog3 = new Alert(AlertType.NONE,"登録しました。",ButtonType.OK);
+    	dialog3.setTitle("完了");
 
 		if(regMovieTitle.getText() == null ||
 				regMovieDate.getValue() == null ||
@@ -457,27 +458,60 @@ public class MoviedetailController extends MovieController{
 			Optional<ButtonType >diaRs =dialog.showAndWait();
 			if(diaRs.get() == ButtonType.YES) {
 				Connection conn =null;
-				fis = new FileInputStream(selectedFile);
-				System.out.println((int)selectedFile.length()+"upup");
-
 				try {
 					conn = DriverManager.getConnection(ConstantData.MYSQL_URL, ConstantData.MYSQL_USER,
 							ConstantData.MYSQL_PASSWORD);
-					String sql = "update kan_system.movie set movie_date = ?, movie_title = ?, movie_image = ?, movie_evaluation =?, movie_popcorn = ?, movie_seat = ?, movie_time = ? where movie_id = ?";
+
+					String sql = "update kan_system.movie "
+							+ "set movie_date = ?, "
+							+ "movie_title = ?, "
+							+ "movie_image = ?, "
+							+ "movie_evaluation =?, "
+							+ "movie_popcorn = ?, "
+							+ "movie_seat = ?,"
+							+ " movie_time = ?, "
+							+ "movie_theater_id = ?, "
+							+ "movie_ticket_id = ?"
+							+ "where movie_id = ?";
+
 					PreparedStatement stmt = conn.prepareStatement(sql);
 
 					stmt.setString(1,regMovieDate.getValue().toString());
 					stmt.setString(2, regMovieTitle.getText());
-					stmt.setBinaryStream(3, (InputStream)fis,(int)selectedFile.length());
+					if(fis == null) {
+						stmt.setBytes(3, r);
+					}else {
+						fis = new FileInputStream(selectedFile);
+						stmt.setBinaryStream(3, (InputStream)fis,(int)selectedFile.length());
+					}
 					stmt.setInt(4, evalCnt);
 					stmt.setInt(5, popCnt);
 					stmt.setString(6, regMovieSeat.getText());
 					stmt.setInt(7, Integer.valueOf(regMovieTime.getText()));
-					stmt.setInt(8, ConstantData.getMovie_id());
-
+					for (MovieTheater th : movieThList) {
+						if(th.movie_theater_name.equals(regMovieTheater.getValue())) {
+							stmt.setString(8, th.movie_theater_id);
+						}
+					}
+					for(MovieTicket tic: movieTicList) {
+						if(tic.movie_ticket.equals(regMovieTicket.getValue())) {
+							stmt.setString(9, tic.movie_ticket_id);
+						}
+					}
+					stmt.setInt(10, ConstantData.getMovie_id());
 					int r = stmt.executeUpdate();
+					dialog3.showAndWait();
+					AnchorPane pane;
+					pane = FXMLLoader.load(getClass().getResource("Movie.fxml"));
+					paneMovieDetail.getChildren().setAll(pane);
 
 				} catch (SQLException e) {
+					// TODO 自動生成された catch ブロック
+					Alert dialog4 = new Alert(AlertType.NONE, "画像サイズが登録上限を超えています", ButtonType.OK);
+					dialog4.setTitle("エラー");
+					dialog4.showAndWait();
+					e.printStackTrace();
+				} catch (IOException e) {
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
 				}

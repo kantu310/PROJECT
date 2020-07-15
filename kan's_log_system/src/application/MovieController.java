@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import data.ConstantData;
@@ -27,7 +28,7 @@ import table.Movie;
 public class MovieController extends MainmenuController {
 
 	public static ObservableList<Movie> movieList = FXCollections.observableArrayList();
-	public static List<String> movieYearList = new ArrayList<>();
+	public  List<String> movieYearList = new ArrayList<>();
 	public static int yearCnt = 0;
 	public static int yearMaxCnt;
 	SimpleDateFormat smfyear = new SimpleDateFormat("yyyy");
@@ -51,6 +52,9 @@ public class MovieController extends MainmenuController {
 	@FXML
 	private ImageView btnMovieYearFr;
 
+    @FXML
+    private ImageView addMovie;
+
 
 	@FXML
 	private void initialize() throws SQLException {
@@ -62,6 +66,7 @@ public class MovieController extends MainmenuController {
 			if(!movieYearList.contains(year)){
 				movieYearList.add(year);
 			}
+			Collections.sort(movieYearList,Collections.reverseOrder());
 		}
 		yearMaxCnt = movieYearList.size()-1;//鑑賞年の最大インデックスを格納
 
@@ -164,6 +169,11 @@ public class MovieController extends MainmenuController {
 			}
 
 	}
+
+    @FXML
+    void onAddMovie(MouseEvent event) {
+
+    }
 
 
 }
