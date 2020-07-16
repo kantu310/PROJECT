@@ -50,10 +50,15 @@
             <Image url="@image/arrow_24px.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="addMovie" fitHeight="20.0" fitWidth="20.0" layoutX="186.0" layoutY="121.0" onDragDetected="#onAddMovie" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="addMovie" fitHeight="20.0" fitWidth="20.0" layoutX="186.0" layoutY="121.0" onMouseClicked="#onAddMovie" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@image/add_50px.png" />
          </image>
       </ImageView>
+      <Text fx:id="txtMovieCnt" layoutX="260.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

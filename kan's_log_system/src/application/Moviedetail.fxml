@@ -85,6 +85,7 @@
       </ImageView>
       <Button fx:id="btnReg" layoutX="688.0" layoutY="512.0" mnemonicParsing="false" onAction="#onBtnReg" text="登録" visible="false" />
       <Button fx:id="btnFileCho" layoutX="193.0" layoutY="480.0" mnemonicParsing="false" onAction="#onBtnFileCho" text="画像選択" visible="false" />
+      <Button fx:id="btndelete" layoutX="765.0" layoutY="512.0" mnemonicParsing="false" onAction="#onBtndelete" text="削除" visible="false" />
       <ImageView fx:id="btnBackEditMode" fitHeight="27.0" fitWidth="26.0" layoutX="35.0" layoutY="113.0" onMouseClicked="#onMouseBtnBackEditMode" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@image/back_arrow_32px.png" />

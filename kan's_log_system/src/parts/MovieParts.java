@@ -80,4 +80,19 @@ public class MovieParts {
 		System.out.println(num);
 	}
 
+	public static void deleteMovie() {
+
+		String sql  = "DELETE FROM kan_system.movie where movie_id =" +ConstantData.getMovie_id();
+		System.out.println(sql);
+		int num = 0;
+
+		try {
+			num = SqlConnectionParts.sqlCreate(sql);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		System.out.println(num);
+
+	}
+
 }

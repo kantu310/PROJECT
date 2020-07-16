@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane fx:id="paneMovieDetail" prefHeight="633.0" prefWidth="935.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MovieAddController">
+   <children>
+      <AnchorPane layoutX="-2.0" prefHeight="82.0" prefWidth="1130.0" style="-fx-background-color: #F0F7FF;" />
+      <ImageView fx:id="addImageMovie" fitHeight="314.0" fitWidth="264.0" layoutX="35.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/image_file_24px.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="381.0" layoutY="153.0" prefHeight="18.0" prefWidth="111.0" text="タイトル" />
+      <Label layoutX="381.0" layoutY="195.0" prefHeight="18.0" prefWidth="111.0" text="鑑賞日" />
+      <Label layoutX="381.0" layoutY="238.0" prefHeight="18.0" prefWidth="111.0" text="鑑賞劇場" />
+      <Label layoutX="381.0" layoutY="323.0" prefHeight="18.0" prefWidth="111.0" text="鑑賞シート" />
+      <Label layoutX="381.0" layoutY="283.0" prefHeight="18.0" prefWidth="111.0" text="チケット" />
+      <Label layoutX="381.0" layoutY="365.0" prefHeight="18.0" prefWidth="111.0" text="上映時間" />
+      <Label layoutX="381.0" layoutY="409.0" prefHeight="18.0" prefWidth="111.0" text="評価" />
+      <Label layoutX="381.0" layoutY="458.0" prefHeight="18.0" prefWidth="111.0" text="ポップコーン度" />
+      <HBox fx:id="addhBoxMovieEval" layoutX="534.0" layoutY="401.0" prefHeight="34.0" prefWidth="123.0" />
+      <HBox fx:id="regHBoxMovieEval" prefHeight="34.0" prefWidth="123.0" visible="false" />
+      <HBox fx:id="addhBoxMoviePop" layoutX="534.0" layoutY="450.0" prefHeight="34.0" prefWidth="123.0" />
+      <HBox fx:id="regHBoxMoviePop" prefHeight="34.0" prefWidth="123.0" visible="false" />
+      <TextField fx:id="addMovieTitle" layoutX="534.0" layoutY="149.0" prefHeight="26.0" prefWidth="204.0" />
+      <DatePicker fx:id="addMovieDate" layoutX="534.0" layoutY="192.0" />
+      <ComboBox fx:id="addMovieTheater" layoutX="533.0" layoutY="235.0" onAction="#onSelectedMovieTheater" prefHeight="26.0" prefWidth="222.0" />
+      <ComboBox fx:id="addMovieTicket" layoutX="533.0" layoutY="279.0" prefHeight="26.0" prefWidth="222.0" />
+      <TextField fx:id="addMovieSeat" layoutX="534.0" layoutY="319.0" />
+      <TextField fx:id="addMovieTime" layoutX="534.0" layoutY="361.0" onKeyPressed="#onKeyTime" />
+      <ImageView fx:id="regImageMovie" fitHeight="314.0" fitWidth="222.0" layoutX="35.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+      <ImageView fx:id="upEval" fitHeight="25.0" fitWidth="26.0" layoutX="696.0" layoutY="406.0" onMouseClicked="#onUpEval" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/arrow_24px.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dwEval" fitHeight="25.0" fitWidth="26.0" layoutX="500.0" layoutY="406.0" onMouseClicked="#onDwEval" pickOnBounds="true" preserveRatio="true" rotate="180.0" visible="false">
+         <image>
+            <Image url="@image/arrow_24px.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="upPop" fitHeight="25.0" fitWidth="26.0" layoutX="696.0" layoutY="455.0" onMouseClicked="#onUpPop" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@image/arrow_24px.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dwPop" fitHeight="25.0" fitWidth="26.0" layoutX="500.0" layoutY="455.0" onMouseClicked="#onDwPop" pickOnBounds="true" preserveRatio="true" rotate="180.0" visible="false">
+         <image>
+            <Image url="@image/arrow_24px.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnReg" layoutX="688.0" layoutY="512.0" mnemonicParsing="false" onAction="#onBtnReg" text="登録" />
+      <Button fx:id="btnFileCho" layoutX="193.0" layoutY="480.0" mnemonicParsing="false" onAction="#onBtnFileCho" text="画像選択" />
+      <Button fx:id="closeAdd" layoutX="756.0" layoutY="512.0" mnemonicParsing="false" onAction="#onCloseAdd" text="閉じる" />
+   </children>
+</AnchorPane>

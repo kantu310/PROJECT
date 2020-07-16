@@ -36,6 +36,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import parts.MovieParts;
 import parts.MovieTheaterParts;
 import parts.MovieTicketParts;
 import table.Movie;
@@ -137,6 +138,9 @@ public class MoviedetailController extends MovieController{
     @FXML
     private Button btnReg;
 
+    @FXML
+    private Button btndelete;
+
 
 
 
@@ -146,6 +150,10 @@ public class MoviedetailController extends MovieController{
     	for (Movie movie : movieList) {
     		if(movie.movie_id == ConstantData.getMovie_id()) {
     			//イメージを表示
+				if(movie.movie_image == null) {
+					Image img = new Image("application/image/image_file_24px.png");
+					imgMovie.setImage(img);
+				}else {
 
     			is = movie.movie_image.getBinaryStream();
     			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -162,6 +170,7 @@ public class MoviedetailController extends MovieController{
     				e.printStackTrace();
     				r = null;
     			}
+				}
     			txtMovieTitle.setText(movie.movie_title);//タイトル表示
     			txtMovieDate.setText(String.valueOf(movie.movie_date));//鑑賞日付表示
     			txtMovieTheater.setText(movie.movie_theater_name);//鑑賞劇場表示
@@ -240,6 +249,7 @@ public class MoviedetailController extends MovieController{
         btnFileCho.setVisible(true);
         btnReg.setVisible(true);
         btnBackEditMode.setVisible(true);
+        btndelete.setVisible(true);
         if(!(evalCnt == 5)) {
         	upEval.setVisible(true);
         }
@@ -313,6 +323,7 @@ public class MoviedetailController extends MovieController{
         btnFileCho.setVisible(false);
         btnReg.setVisible(false);
         btnBackEditMode.setVisible(false);
+        btndelete.setVisible(false);
         upEval.setVisible(false);
         dwEval.setVisible(false);
         upPop.setVisible(false);
@@ -515,13 +526,22 @@ public class MoviedetailController extends MovieController{
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
 				}
-
-
 			}else if(diaRs.get() == ButtonType.NO){
 				dialog.close();
 			}
 		}
-
-
     }
+
+    @FXML
+    void onBtndelete(ActionEvent event) {
+    	Alert dialog = new Alert(AlertType.NONE,"削除しますか？",ButtonType.YES,ButtonType.NO);
+    	dialog.setTitle("確認");
+		Optional<ButtonType >diaRs =dialog.showAndWait();
+		if(diaRs.get() == ButtonType.YES) {
+			MovieParts.deleteMovie();
+	    	Alert dialog3 = new Alert(AlertType.NONE,"削除しました",ButtonType.OK);
+	    	dialog3.setTitle("完了");
+	    	onMouseBtnBackMovie(null);
+			}
 }
+    }

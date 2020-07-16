@@ -15,6 +15,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +24,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import parts.MovieParts;
 import table.Movie;
 
@@ -29,8 +33,9 @@ public class MovieController extends MainmenuController {
 
 	public static ObservableList<Movie> movieList = FXCollections.observableArrayList();
 	public  List<String> movieYearList = new ArrayList<>();
-	public static int yearCnt = 0;
+	public static int yearCnt;
 	public static int yearMaxCnt;
+	public  int movieCnt = 0;
 	SimpleDateFormat smfyear = new SimpleDateFormat("yyyy");
 
 
@@ -46,6 +51,9 @@ public class MovieController extends MainmenuController {
 	@FXML
 	private Text movie_year;
 
+    @FXML
+    private Text txtMovieCnt;
+
 	@FXML
 	private ImageView btnMovieYearBk;
 
@@ -59,6 +67,7 @@ public class MovieController extends MainmenuController {
 	@FXML
 	private void initialize() throws SQLException {
 		movieList = MovieParts.getMovie();//movieテーブルから情報を取得
+
 		//鑑賞日付から年を抽出し、リストを作成
 		for (Movie movie : movieList) {
 			String year = smfyear.format(movie.movie_date);
@@ -69,9 +78,12 @@ public class MovieController extends MainmenuController {
 			Collections.sort(movieYearList,Collections.reverseOrder());
 		}
 		yearMaxCnt = movieYearList.size()-1;//鑑賞年の最大インデックスを格納
-
+		if(yearCnt == movieYearList.size()) {
+			yearCnt = yearCnt - 1;
+			movie_year.setText(String.valueOf(movieYearList.get(yearCnt)));
+		}else {
 		movie_year.setText(String.valueOf(movieYearList.get(yearCnt)));
-
+		}
 		//ボタンの初期化
 		if(yearCnt != 0) {
 			btnMovieYearFr.setVisible(true);
@@ -86,6 +98,7 @@ public class MovieController extends MainmenuController {
 	public void movieImageDisplay(int a) throws SQLException {
 
 		byte[] r = null;
+		movieCnt = 0;
 
 
 		//映画イメージを表示
@@ -94,6 +107,15 @@ public class MovieController extends MainmenuController {
 			String year = smfyear.format(movie.movie_date);
 
 			if(year.equals(String.valueOf(movieYearList.get(a)))) {
+				if(movie.movie_image == null) {
+					Image img = new Image("application/image/image_file_24px.png");
+					ImageView imgv = new ImageView(img);
+					imgv.setFitHeight(280);
+					imgv.setFitWidth(180);
+					movieFlowPane.getChildren().addAll(imgv);
+					imgv.setOnMouseClicked(event -> movieDetailDisplay(movie.movie_id));
+					movieCnt = movieCnt +1;
+				}else {
 				InputStream is = movie.movie_image.getBinaryStream();
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				byte[] bs = new byte [1024];
@@ -109,12 +131,15 @@ public class MovieController extends MainmenuController {
 					imgv.setFitWidth(180);
 					movieFlowPane.getChildren().addAll(imgv);
 					imgv.setOnMouseClicked(event -> movieDetailDisplay(movie.movie_id));
+					movieCnt = movieCnt +1;
 				} catch (IOException e) {
 					e.printStackTrace();
 					r = null;
 				}
 			}
+			}
 		}
+		txtMovieCnt.setText("鑑賞本数" +String.valueOf(movieCnt) + "本");
 	}
 
 
@@ -171,9 +196,23 @@ public class MovieController extends MainmenuController {
 	}
 
     @FXML
-    void onAddMovie(MouseEvent event) {
+    void onAddMovie(MouseEvent event) throws IOException {
+
+		Parent parent1 = FXMLLoader.load(getClass().getResource("Movieadd.fxml"));
+		Stage stage1 = new Stage();
+		Scene scene1 = new Scene(parent1);
+	 	stage1.initOwner(stage);
+		stage1.setScene(scene1);
+		stage1.initModality(Modality.APPLICATION_MODAL);
+		stage1.setTitle("新規追加");
+		stage1.showAndWait();
+		AnchorPane pane;
+		pane = FXMLLoader.load(getClass().getResource("Movie.fxml"));
+		moviepane.getChildren().setAll(pane);
 
     }
+
+
 
 
 }
