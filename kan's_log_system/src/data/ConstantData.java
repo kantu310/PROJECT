@@ -86,6 +86,13 @@ public  class ConstantData {
 		//【movie_ticket】//映画チケットテーブルのカラム
 		public static final String MOVIE_TICKET="MOVIE_TICKET";
 
+		//【book】本テーブルのカラム
+		public static final String BOOK_ID = "BOOK_ID";
+		public static final String BOOK_TITLE = "BOOK_TITLE";
+		public static final String BOOK_DATE = "BOOK_DATE";
+		public static final String BOOK_IMAGE = "BOOK_IMAGE";
+		public static final String BOOK_TOPIC = "BOOK_TOPIC";
+
 		public static String getMysqlUrl() {
 			return MYSQL_URL;
 		}
@@ -158,6 +165,22 @@ public  class ConstantData {
 		public static String getMovieTheaterTypeId() {
 			return MOVIE_THEATER_TYPE_ID;
 		}
+		public static String getBookId() {
+			return BOOK_ID;
+		}
+		public static String getBookTitle() {
+			return BOOK_TITLE;
+		}
+		public static String getBookDate() {
+			return BOOK_DATE;
+		}
+		public static String getBookImage() {
+			return BOOK_IMAGE;
+		}
+		public static String getBookTopic() {
+			return BOOK_TOPIC;
+		}
+
 
 
 }

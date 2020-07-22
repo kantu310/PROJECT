@@ -329,6 +329,8 @@ public class MoviedetailController extends MovieController{
         upPop.setVisible(false);
         dwPop.setVisible(false);
         //リセット
+        regMovieTicket.getItems().clear();
+        regMovieTheater.setValue(null);
         hBoxMovieEval.getChildren().clear();
         hBoxMoviePop.getChildren().clear();
         regImageMovie.setImage(null);
@@ -426,21 +428,25 @@ public class MoviedetailController extends MovieController{
     void onSelectedMovieTheater(ActionEvent event) {
     	//チケットコンボボックスリセット
     	regMovieTicket.getItems().clear();
-    	//共通のチケットを設定
-    	for (MovieTicket a : movieTicList) {
-    		if(a.movie_theater_type_id.equals("common")) {
-    			String Name = a.movie_ticket;
-    			regMovieTicket.getItems().add(Name);
-    		}
-    	}
+
     	//映画館コンボボックスで設定した映画館の種類と一致するチケットを設定
-    	for (MovieTheater aa: movieThList) {
-    		if(regMovieTheater.getValue().equals(aa.movie_theater_name)) {
-    			String theaterId = aa.movie_theater_type_id;
-    			for (MovieTicket bb : movieTicList) {
-    				if(theaterId.equals(bb.movie_theater_type_id)) {
-    					String ticName = bb.movie_ticket;
-    					regMovieTicket.getItems().addAll(ticName);
+    	if(regMovieTheater.getValue() != null) {
+        	//共通のチケットを設定
+        	for (MovieTicket a : movieTicList) {
+        		if(a.movie_theater_type_id.equals("common")) {
+        			String Name = a.movie_ticket;
+        			regMovieTicket.getItems().add(Name);
+        		}
+        	}
+        	//映画館の種類ごとのチケットを設定
+    		for (MovieTheater aa: movieThList) {
+    			if(regMovieTheater.getValue().equals(aa.movie_theater_name)) {
+    				String theaterId = aa.movie_theater_type_id;
+    				for (MovieTicket bb : movieTicList) {
+    					if(theaterId.equals(bb.movie_theater_type_id)) {
+    						String ticName = bb.movie_ticket;
+    						regMovieTicket.getItems().addAll(ticName);
+    					}
     				}
     			}
     		}
@@ -458,12 +464,12 @@ public class MoviedetailController extends MovieController{
     	Alert dialog3 = new Alert(AlertType.NONE,"登録しました。",ButtonType.OK);
     	dialog3.setTitle("完了");
 
-		if(regMovieTitle.getText() == null ||
+		if(regMovieTitle.getText().isEmpty()||
 				regMovieDate.getValue() == null ||
 				regMovieTheater.getValue() == null ||
-				regMovieTicket.getValue() == null ||
-				regMovieSeat.getText() == null ||
-				regMovieTime.getText() == null) {
+				regMovieTicket.getValue() == null||
+				regMovieSeat.getText().isEmpty() ||
+				regMovieTime.getText().isEmpty()) {
 			dialog2.showAndWait();
 		}else {
 			Optional<ButtonType >diaRs =dialog.showAndWait();

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="moviepane" prefHeight="633.0" prefWidth="935.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.BookController">
+   <children>
+      <AnchorPane layoutX="-2.0" prefHeight="82.0" prefWidth="1130.0" style="-fx-background-color: #F0F7FF;">
+         <children>
+            <Text layoutX="56.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book" wrappingWidth="1037.970703125">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="23.0" layoutY="33.0">
+               <image>
+                  <Image url="@image/book_26px.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="book_view" layoutX="14.0" layoutY="160.0" prefHeight="420.0" prefWidth="1114.0">
+        <columns>
+            <TableColumn fx:id="bookId" prefWidth="75.0" text="ID" visible="false" />
+            <TableColumn fx:id="bookDateCal" prefWidth="231.199951171875" text="登録日付" />
+          <TableColumn fx:id="bookTitleCal" prefWidth="274.39997577667236" text="タイトル" />
+          <TableColumn fx:id="bookImageCal" prefWidth="610.3999633789062" text="表紙" />
+            <TableColumn prefWidth="75.0" text="トピック" visible="false" />
+        </columns>
+      </TableView>
+      <Button layoutX="103.0" layoutY="126.0" mnemonicParsing="false" text="削除" />
+      <Button layoutX="14.0" layoutY="126.0" mnemonicParsing="false" text="新規登録" />
+   </children>
+</AnchorPane>

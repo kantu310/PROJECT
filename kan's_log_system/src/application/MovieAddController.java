@@ -231,12 +231,12 @@ public class MovieAddController{
 	    	Alert dialog3 = new Alert(AlertType.NONE,"登録しました。",ButtonType.OK);
 	    	dialog3.setTitle("完了");
 
-			if(addMovieTitle.getText() == null ||
+			if(addMovieTitle.getText().isEmpty() ||
 					addMovieDate.getValue() == null ||
 					addMovieTheater.getValue() == null ||
 					addMovieTicket.getValue() == null ||
-					addMovieSeat.getText() == null ||
-					addMovieTime.getText() == null) {
+					addMovieSeat.getText().isEmpty() ||
+					addMovieTime.getText().isEmpty()) {
 				dialog2.showAndWait();
 			}else {
 				Optional<ButtonType >diaRs =dialog.showAndWait();
