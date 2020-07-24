@@ -547,6 +547,7 @@ public class MoviedetailController extends MovieController{
 			MovieParts.deleteMovie();
 	    	Alert dialog3 = new Alert(AlertType.NONE,"削除しました",ButtonType.OK);
 	    	dialog3.setTitle("完了");
+	    	dialog3.showAndWait();
 	    	onMouseBtnBackMovie(null);
 			}
 }

@@ -14,7 +14,7 @@ public class BookParts {
 
 		ObservableList<Book> obList = FXCollections.observableArrayList();
 
-		String sql = "SELECT BOOK_ID, BOOK_DATE, BOOK_TITLE, BOOK_TOPIC, BOOK_IMAGE FROM kan_system.book where USER_ID = \""+ConstantData.getLoginUserID()+"\";";
+		String sql = "SELECT BOOK_ID, BOOK_DATE, BOOK_TITLE, BOOK_TOPIC, BOOK_IMAGE FROM kan_system.book where USER_ID = \""+ConstantData.getLoginUserID()+"\"ORDER BY BOOK_DATE DESC;";
 
 		ResultSet num;
 		try {
@@ -34,6 +34,21 @@ public class BookParts {
 
 		System.out.println(obList);
 		return obList;
+	}
+
+	public static void deleteBook(int book_id) {
+
+		String sql  = "DELETE FROM kan_system.book where book_id =" + book_id;
+		System.out.println(sql);
+		int num = 0;
+
+		try {
+			num = SqlConnectionParts.sqlCreate(sql);
+		} catch (SQLException e) {
+			// TODO: handle exception
+		}
+		System.out.println(num);
+
 	}
 
 }
