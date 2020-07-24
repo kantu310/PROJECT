@@ -59,7 +59,7 @@
       </ImageView>
       <TextField fx:id="regBookTitle" layoutX="171.0" layoutY="126.0" visible="false" />
       <DatePicker fx:id="regBookDate" layoutX="170.0" layoutY="165.0" prefHeight="26.0" prefWidth="168.0" visible="false" />
-      <Button fx:id="regBookImageBtn" layoutX="234.0" layoutY="571.0" mnemonicParsing="false" text="画像を選択" visible="false" />
+      <Button fx:id="regBookImageBtn" layoutX="234.0" layoutY="571.0" mnemonicParsing="false" onAction="#onregBookImageBtn" text="画像を選択" visible="false" />
       <ImageView fx:id="regBookImage" fitHeight="368.0" fitWidth="251.0" layoutX="136.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../../../../../Documents/movie/952203ada2d14610.jpg" />
