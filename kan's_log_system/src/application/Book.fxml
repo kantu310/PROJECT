@@ -30,7 +30,7 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Button fx:id="newRegBtn" layoutX="35.0" layoutY="89.0" mnemonicParsing="false" onAction="#onNewRegBtn" text="新規登録" />
+      <Button fx:id="newRegBtn" layoutX="24.0" layoutY="89.0" mnemonicParsing="false" onAction="#onNewRegBtn" text="新規登録" />
       <ScrollPane layoutX="7.0" layoutY="122.0" prefHeight="511.0" prefWidth="119.0">
          <content>
             <FlowPane fx:id="bookFlowPane" prefHeight="510.0" prefWidth="118.0" vgap="10.0">
@@ -67,6 +67,6 @@
       </ImageView>
       <Button fx:id="btnReg" layoutX="152.0" layoutY="571.0" mnemonicParsing="false" text="登録" visible="false" />
       <Button fx:id="btnRegNew" layoutX="152.0" layoutY="571.0" mnemonicParsing="false" onAction="#onBtnRegNew" text="追加登録" visible="false" />
-      <Button fx:id="deleteBtn" layoutX="327.0" layoutY="572.0" mnemonicParsing="false" onAction="#onDeleteBtn" text="削除" visible="false" />
+      <Button fx:id="deleteBtn" layoutX="340.0" layoutY="571.0" mnemonicParsing="false" onAction="#onDeleteBtn" text="削除" visible="false" />
    </children>
 </AnchorPane>

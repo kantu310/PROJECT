@@ -41,7 +41,7 @@
       <Label layoutX="381.0" layoutY="365.0" prefHeight="18.0" prefWidth="111.0" text="上映時間" />
       <Label layoutX="381.0" layoutY="409.0" prefHeight="18.0" prefWidth="111.0" text="評価" />
       <Label layoutX="381.0" layoutY="458.0" prefHeight="18.0" prefWidth="111.0" text="ポップコーン度" />
-      <Text fx:id="txtMovieTitle" layoutX="541.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="186.11175249957978" />
+      <Text fx:id="txtMovieTitle" layoutX="541.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="title" wrappingWidth="332.5117769136423" />
       <Text fx:id="txtMovieDate" layoutX="541.0" layoutY="209.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DATE" wrappingWidth="186.11174467727642" />
       <Text fx:id="txtMovieTheater" layoutX="541.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="theater" wrappingWidth="186.11174467727642" />
       <Text fx:id="txtMovieTicket" layoutX="541.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ticket" wrappingWidth="186.11174467727642" />
