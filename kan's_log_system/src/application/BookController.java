@@ -179,7 +179,10 @@ private void bookDetailDisplay(int id,String title, Date date,Image img,String t
 
 	txtBookTitle.setText(title);
 	txtBookDate.setText("登録日：" + String.valueOf(date));
+	BookImage.setFitHeight(368);
+	BookImage.setFitWidth(251);
 	BookImage.setImage(img);
+
 	BookImage.setFitHeight(368);
 	BookImage.setFitWidth(251);
 	bookTopic.getEngine().loadContent(topic);
@@ -220,9 +223,10 @@ void onregBookImageBtn(ActionEvent event) {
 	try {
 		fis = new FileInputStream(selectedFile);
 		Image img = new Image(fis);
-		regBookImage.setImage(img);
 		regBookImage.setFitHeight(368);
 		regBookImage.setFitWidth(251);
+		regBookImage.setImage(img);
+
 
 	} catch (FileNotFoundException e) {
 		e.printStackTrace();
