@@ -151,7 +151,7 @@ public class MoviedetailController extends MovieController{
     		if(movie.movie_id == ConstantData.getMovie_id()) {
     			//イメージを表示
 				if(movie.movie_image == null) {
-					Image img = new Image("application/image/image_file_24px.png");
+					Image img = new Image("application/image_file_24px.png");
 					imgMovie.setImage(img);
 				}else {
 
@@ -181,7 +181,7 @@ public class MoviedetailController extends MovieController{
     			//評価表示
     	        evalCnt = movie.movie_evaluation;//評価値を保持
     			for(int i = 0; i < movie.movie_evaluation; i++) {
-    				Image img = new Image("application/image/star_48px.png");
+    				Image img = new Image("application/star_48px.png");
     				ImageView evImg = new ImageView(img);
     				evImg.setFitWidth(30);
     				evImg.setFitHeight(30);
@@ -191,7 +191,7 @@ public class MoviedetailController extends MovieController{
     			//ポップコーン度表示
     			popCnt = movie.movie_popcorn;//評価値を保持
     			for(int i = 0; i < movie.movie_popcorn; i++) {
-    				Image img = new Image("application/image/popcorn_48px.png");
+    				Image img = new Image("application/popcorn_48px.png");
     				ImageView evImg = new ImageView(img);
 
     				evImg.setFitWidth(30);
@@ -339,7 +339,7 @@ public class MoviedetailController extends MovieController{
     		if(movie.movie_id == ConstantData.getMovie_id()) {
     			//評価再表示
     			for(int i = 0; i < movie.movie_evaluation; i++) {
-    				Image img = new Image("application/image/star_48px.png");
+    				Image img = new Image("application/star_48px.png");
     				ImageView evImg = new ImageView(img);
     				evImg.setFitWidth(30);
     				evImg.setFitHeight(30);
@@ -349,7 +349,7 @@ public class MoviedetailController extends MovieController{
 
     			//ポップコーン度再表示
     			for(int i = 0; i < movie.movie_popcorn; i++) {
-    				Image img = new Image("application/image/popcorn_48px.png");
+    				Image img = new Image("application/popcorn_48px.png");
     				ImageView evImg = new ImageView(img);
     				evImg.setFitWidth(30);
     				evImg.setFitHeight(30);
@@ -365,7 +365,7 @@ public class MoviedetailController extends MovieController{
     	if(!(evalCnt == 5)) {
     		evalCnt = evalCnt + 1;
     		dwEval.setVisible(true);
-			Image img = new Image("application/image/star_48px.png");
+			Image img = new Image("application/star_48px.png");
 			ImageView evImg = new ImageView(img);
 			evImg.setFitWidth(30);
 			evImg.setFitHeight(30);
@@ -397,7 +397,7 @@ public class MoviedetailController extends MovieController{
     	if(!(popCnt == 5)) {
     		popCnt = popCnt + 1;
     		dwPop.setVisible(true);
-			Image img = new Image("application/image/popcorn_48px.png");
+			Image img = new Image("application/popcorn_48px.png");
 			ImageView evImg = new ImageView(img);
 			evImg.setFitWidth(30);
 			evImg.setFitHeight(30);

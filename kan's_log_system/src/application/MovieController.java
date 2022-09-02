@@ -108,7 +108,7 @@ public class MovieController extends MainmenuController {
 
 			if(year.equals(String.valueOf(movieYearList.get(a)))) {
 				if(movie.movie_image == null) {
-					Image img = new Image("application/image/image_file_24px.png");
+					Image img = new Image("application/image_file_24px.png");
 					ImageView imgv = new ImageView(img);
 					imgv.setFitHeight(280);
 					imgv.setFitWidth(180);

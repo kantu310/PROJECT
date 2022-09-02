@@ -144,7 +144,7 @@ public class MovieAddController{
 	    	if(!(evalCnt == 5)) {
 	    		evalCnt = evalCnt + 1;
 	    		dwEval.setVisible(true);
-				Image img = new Image("application/image/star_48px.png");
+				Image img = new Image("application/star_48px.png");
 				ImageView evImg = new ImageView(img);
 				evImg.setFitWidth(30);
 				evImg.setFitHeight(30);
@@ -175,7 +175,7 @@ public class MovieAddController{
 	    	if(!(popCnt == 5)) {
 	    		popCnt = popCnt + 1;
 	    		dwPop.setVisible(true);
-				Image img = new Image("application/image/popcorn_48px.png");
+				Image img = new Image("application/popcorn_48px.png");
 				ImageView evImg = new ImageView(img);
 				evImg.setFitWidth(30);
 				evImg.setFitHeight(30);

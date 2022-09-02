@@ -23,27 +23,27 @@
             </AnchorPane>
             <ImageView fitHeight="25.0" fitWidth="26.0" layoutX="11.0" layoutY="136.0">
                <image>
-                  <Image url="@image/fire_50px.png" />
+                  <Image url="application/fire_50px.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="10.0" layoutY="182.0">
                <image>
-                  <Image url="@image/movie_50px.png" />
+                  <Image url="application/movie_50px.png" />
                </image>
             </ImageView>
             <ImageView layoutX="10.0" layoutY="234.0">
                <image>
-                  <Image url="@image/book_26px.png" />
+                  <Image url="application/book_26px.png" />
                </image>
             </ImageView>
             <ImageView layoutX="10.0" layoutY="286.0">
                <image>
-                  <Image url="@image/account_26px.png" />
+                  <Image url="application/account_26px.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="10.0" layoutY="86.0">
                <image>
-                  <Image url="@image/up_50px.png" />
+                  <Image url="application/up_50px.png" />
                </image>
             </ImageView>
             <Button fx:id="btn_top" layoutX="45.0" layoutY="87.0" mnemonicParsing="false" onAction="#onButtonTop" prefHeight="25.0" prefWidth="126.0" text="Top" />

@@ -23,17 +23,17 @@
             </Text>
             <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="480.0" layoutY="294.0">
                <image>
-                  <Image url="@image/fire_50px.png" />
+                  <Image url="application/fire_50px.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="28.0" fitWidth="26.0" layoutX="542.0" layoutY="292.0">
                <image>
-                  <Image url="@image/movie_50px.png" />
+                  <Image url="application/movie_50px.png" />
                </image>
             </ImageView>
             <ImageView layoutX="607.0" layoutY="293.0">
                <image>
-                  <Image url="@image/book_26px.png" />
+                  <Image url="application/book_26px.png" />
                </image>
             </ImageView>
          </children>

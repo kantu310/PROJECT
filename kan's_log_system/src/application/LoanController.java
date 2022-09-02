@@ -330,7 +330,7 @@ public class LoanController extends Controller{
 
     @FXML
     void fullRepayedJudge() {
-    	if(Long.valueOf(debt_balance.getText()) <= 0) {
+    	if(String.valueOf(debt_balance.getText()).equals("0")) {
     		aaa.set("完済");
     		System.out.println("完済！");
     	}
